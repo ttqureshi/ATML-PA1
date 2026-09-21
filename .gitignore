@@ -37,3 +37,6 @@ task*/results/**/*.npz
 .DS_Store
 Thumbs.db
 
+
+# Private / local-only notes (do not commit)
+report/private/
