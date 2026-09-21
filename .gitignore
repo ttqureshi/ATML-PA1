@@ -1,6 +1,6 @@
 # Datasets and large artifacts (do not commit)
-data/
-datasets/
+/data/
+/datasets/
 *.tar.gz
 *.tgz
 *.zip
@@ -36,3 +36,4 @@ task*/results/**/*.npz
 .vscode/
 .DS_Store
 Thumbs.db
+
