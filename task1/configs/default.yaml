@@ -1,0 +1,80 @@
+# Task 1 configuration — all design choices are stated here.
+#
+# ASSUMPTIONS / DESIGN CHOICES (assignment allows these):
+# 1. Dataset: STL-10 (recommended in the PDF).
+# 2. Extra color intervention: fixed hue rotation by +90 degrees in HSV.
+# 3. Cue-conflict method: AdaIN (Huang & Belongie) via public pytorch-AdaIN weights.
+# 4. Style strength (AdaIN alpha): 1.0 (full style).
+# 5. Representation visualization: t-SNE (one fit per backbone on clean+transformed).
+# 6. Cue-conflict class pairs: five unordered STL-10 pairs listed below.
+
+seed: 6304
+
+dataset:
+  name: stl10
+  root: data/stl10
+  image_size: 224
+  # Stratified 80/20 from the official training partition.
+  train_frac: 0.8
+  # Class-balanced subset of the official test set.
+  eval_subset_size: 500
+
+training:
+  max_epochs: 50
+  lr: 0.001
+  weight_decay: 0.0001
+  batch_size: 64
+  early_stop_patience: 5
+  # Linear heads only; backbones stay frozen.
+  num_workers: 2
+
+models:
+  - resnet50
+  - vit_b_16
+  - clip_vit_b_32
+  - clip_zeroshot
+
+color:
+  # Required common intervention.
+  grayscale: true
+  # Chosen additional intervention (see ASSUMPTIONS above).
+  extra: hue_rotate
+  hue_degrees: 90.0
+
+translation:
+  displacements: [0, 8, 16, 32]
+  directions: [up, down, left, right]
+
+patch_shuffle:
+  grid_size: 4
+
+cue_conflict:
+  # At least five unordered pairs; both directions generated when feasible.
+  class_pairs:
+    - [airplane, bird]
+    - [car, truck]
+    - [cat, dog]
+    - [deer, horse]
+    - [ship, monkey]
+  min_valid: 200
+  style_alpha: 1.0
+  # Visual rejection thresholds (NOT based on model predictions).
+  # Reject if edge correlation with content is too low (content destroyed),
+  # or if stylized image is nearly identical to content (style failed).
+  min_edge_corr_with_content: 0.15
+  max_pixel_corr_with_content: 0.98
+  adain_weights_dir: task1/weights/adain
+
+representation:
+  method: tsne
+  perplexity: 30
+  # Subset size for t-SNE (same IDs / seed for all backbones).
+  max_points: 500
+
+paths:
+  splits_dir: task1/results/splits
+  heads_dir: task1/results/heads
+  features_dir: task1/results/features
+  cue_dir: task1/results/cue_conflicts
+  tables_dir: task1/results/tables
+  figures_dir: task1/results/figures
