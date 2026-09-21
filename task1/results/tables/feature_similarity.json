@@ -1,0 +1,28 @@
+{
+  "definition": "mean cosine similarity between clean and transformed backbone features",
+  "notes": [
+    "Translation stability uses a single representative shift (16px right).",
+    "Cue-conflict stability compares stylized features to the content image features.",
+    "CLIP zeroshot uses the same visual features as clip_vit_b_32, so it is omitted here."
+  ],
+  "results": {
+    "resnet50": {
+      "grayscale": 0.7883326194107875,
+      "translation_16px_right": 0.9439566787442459,
+      "patch_shuffle": 0.7150605905468383,
+      "cue_conflict_vs_content": 0.35134028983874255
+    },
+    "vit_b_16": {
+      "grayscale": 0.7392756172297131,
+      "translation_16px_right": 0.9750801836721195,
+      "patch_shuffle": 0.6531811252892142,
+      "cue_conflict_vs_content": 0.31429655844924165
+    },
+    "clip_vit_b_32": {
+      "grayscale": 0.8931966934939839,
+      "translation_16px_right": 0.9657558082278122,
+      "patch_shuffle": 0.7359238028302252,
+      "cue_conflict_vs_content": 0.7115967607985172
+    }
+  }
+}

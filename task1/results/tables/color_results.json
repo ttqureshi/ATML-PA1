@@ -1,0 +1,67 @@
+{
+  "grayscale": {
+    "resnet50": {
+      "top1_accuracy": 0.962,
+      "macro_f1": 0.9619705453967631,
+      "mean_max_confidence": 0.9531588554382324,
+      "prediction_consistency": 0.962,
+      "accuracy_change": -0.016000000000000014
+    },
+    "vit_b_16": {
+      "top1_accuracy": 0.956,
+      "macro_f1": 0.9558523313878368,
+      "mean_max_confidence": 0.9580028057098389,
+      "prediction_consistency": 0.954,
+      "accuracy_change": -0.020000000000000018
+    },
+    "clip_vit_b_32": {
+      "top1_accuracy": 0.958,
+      "macro_f1": 0.9576487581476538,
+      "mean_max_confidence": 0.30779245495796204,
+      "prediction_consistency": 0.958,
+      "accuracy_change": -0.02400000000000002
+    },
+    "clip_zeroshot": {
+      "top1_accuracy": 0.942,
+      "macro_f1": 0.9411182150582782,
+      "mean_max_confidence": 0.9283387660980225,
+      "prediction_consistency": 0.952,
+      "accuracy_change": -0.026000000000000023
+    }
+  },
+  "hue_rotate": {
+    "resnet50": {
+      "top1_accuracy": 0.942,
+      "macro_f1": 0.9422289255299929,
+      "mean_max_confidence": 0.9375695586204529,
+      "prediction_consistency": 0.948,
+      "accuracy_change": -0.03600000000000003
+    },
+    "vit_b_16": {
+      "top1_accuracy": 0.942,
+      "macro_f1": 0.9418143495792289,
+      "mean_max_confidence": 0.9325274229049683,
+      "prediction_consistency": 0.944,
+      "accuracy_change": -0.03400000000000003
+    },
+    "clip_vit_b_32": {
+      "top1_accuracy": 0.936,
+      "macro_f1": 0.9357147589252852,
+      "mean_max_confidence": 0.29180312156677246,
+      "prediction_consistency": 0.938,
+      "accuracy_change": -0.04599999999999993
+    },
+    "clip_zeroshot": {
+      "top1_accuracy": 0.926,
+      "macro_f1": 0.9244426115766778,
+      "mean_max_confidence": 0.9191219806671143,
+      "prediction_consistency": 0.93,
+      "accuracy_change": -0.041999999999999926
+    }
+  },
+  "assumptions": {
+    "extra_color_intervention": "fixed hue rotation",
+    "hue_degrees": 90.0,
+    "note": "Grayscale removes chromatic information. Hue rotation changes color identity while preserving geometry/value."
+  }
+}

@@ -1,0 +1,122 @@
+{
+  "resnet50": [
+    {
+      "displacement": 0,
+      "top1_accuracy": 0.978,
+      "prediction_consistency": 1.0,
+      "macro_f1": 0.9780357293461304,
+      "mean_max_confidence": 0.9650669693946838
+    },
+    {
+      "displacement": 8,
+      "top1_accuracy": 0.9764999999999999,
+      "prediction_consistency": 0.996,
+      "macro_f1": 0.9765940512232928,
+      "mean_max_confidence": 0.9642158895730972
+    },
+    {
+      "displacement": 16,
+      "top1_accuracy": 0.9734999999999999,
+      "prediction_consistency": 0.993,
+      "macro_f1": 0.9735938743352444,
+      "mean_max_confidence": 0.9614969044923782
+    },
+    {
+      "displacement": 32,
+      "top1_accuracy": 0.9664999999999999,
+      "prediction_consistency": 0.9844999999999999,
+      "macro_f1": 0.9667065112371445,
+      "mean_max_confidence": 0.9566984325647354
+    }
+  ],
+  "vit_b_16": [
+    {
+      "displacement": 0,
+      "top1_accuracy": 0.976,
+      "prediction_consistency": 1.0,
+      "macro_f1": 0.9758961528805941,
+      "mean_max_confidence": 0.9636507034301758
+    },
+    {
+      "displacement": 8,
+      "top1_accuracy": 0.9764999999999999,
+      "prediction_consistency": 0.9835,
+      "macro_f1": 0.9764910706948879,
+      "mean_max_confidence": 0.96266108751297
+    },
+    {
+      "displacement": 16,
+      "top1_accuracy": 0.9744999999999999,
+      "prediction_consistency": 0.9904999999999999,
+      "macro_f1": 0.9744398533936387,
+      "mean_max_confidence": 0.9619062542915344
+    },
+    {
+      "displacement": 32,
+      "top1_accuracy": 0.9655,
+      "prediction_consistency": 0.9754999999999999,
+      "macro_f1": 0.9655208332799057,
+      "mean_max_confidence": 0.9565812796354294
+    }
+  ],
+  "clip_vit_b_32": [
+    {
+      "displacement": 0,
+      "top1_accuracy": 0.982,
+      "prediction_consistency": 1.0,
+      "macro_f1": 0.9819754552035352,
+      "mean_max_confidence": 0.3346548080444336
+    },
+    {
+      "displacement": 8,
+      "top1_accuracy": 0.9804999999999999,
+      "prediction_consistency": 0.9855,
+      "macro_f1": 0.9804742885178688,
+      "mean_max_confidence": 0.33205655962228775
+    },
+    {
+      "displacement": 16,
+      "top1_accuracy": 0.977,
+      "prediction_consistency": 0.9804999999999999,
+      "macro_f1": 0.9768864130146694,
+      "mean_max_confidence": 0.32485707849264145
+    },
+    {
+      "displacement": 32,
+      "top1_accuracy": 0.9745,
+      "prediction_consistency": 0.9795,
+      "macro_f1": 0.9744229617746352,
+      "mean_max_confidence": 0.31662967056035995
+    }
+  ],
+  "clip_zeroshot": [
+    {
+      "displacement": 0,
+      "top1_accuracy": 0.968,
+      "prediction_consistency": 1.0,
+      "macro_f1": 0.967524079946368,
+      "mean_max_confidence": 0.9426957964897156
+    },
+    {
+      "displacement": 8,
+      "top1_accuracy": 0.9690000000000001,
+      "prediction_consistency": 0.9810000000000001,
+      "macro_f1": 0.9685468894139073,
+      "mean_max_confidence": 0.9416994452476501
+    },
+    {
+      "displacement": 16,
+      "top1_accuracy": 0.9724999999999999,
+      "prediction_consistency": 0.9794999999999999,
+      "macro_f1": 0.9722217363695254,
+      "mean_max_confidence": 0.9384716898202896
+    },
+    {
+      "displacement": 32,
+      "top1_accuracy": 0.956,
+      "prediction_consistency": 0.973,
+      "macro_f1": 0.9554846653216484,
+      "mean_max_confidence": 0.9275072664022446
+    }
+  ]
+}

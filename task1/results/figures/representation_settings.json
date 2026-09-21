@@ -1,0 +1,11 @@
+{
+  "method": "tsne",
+  "perplexity": 30.0,
+  "seed": 6304,
+  "n_points_per_condition": 500,
+  "interventions_plotted": [
+    "grayscale",
+    "patch_shuffle"
+  ],
+  "note": "One joint 2D fit per backbone on concatenated clean+transformed features. Absolute coordinates are not comparable across backbones."
+}

@@ -1,0 +1,552 @@
+{
+  "assumptions": {
+    "dataset": "STL-10",
+    "seed": 6304,
+    "extra_color_intervention": "hue_rotate",
+    "hue_degrees": 90.0,
+    "cue_conflict_method": "AdaIN",
+    "style_alpha": 1.0,
+    "class_pairs": [
+      [
+        "airplane",
+        "bird"
+      ],
+      [
+        "car",
+        "truck"
+      ],
+      [
+        "cat",
+        "dog"
+      ],
+      [
+        "deer",
+        "horse"
+      ],
+      [
+        "ship",
+        "monkey"
+      ]
+    ],
+    "representation_viz": "tsne"
+  },
+  "clean": {
+    "metrics": {
+      "resnet50": {
+        "top1_accuracy": 0.978,
+        "macro_f1": 0.9780357293461304,
+        "mean_max_confidence": 0.9650669693946838
+      },
+      "vit_b_16": {
+        "top1_accuracy": 0.976,
+        "macro_f1": 0.9758961528805941,
+        "mean_max_confidence": 0.9636507034301758
+      },
+      "clip_vit_b_32": {
+        "top1_accuracy": 0.982,
+        "macro_f1": 0.9819754552035352,
+        "mean_max_confidence": 0.3346548080444336
+      },
+      "clip_zeroshot": {
+        "top1_accuracy": 0.968,
+        "macro_f1": 0.967524079946368,
+        "mean_max_confidence": 0.9426957964897156
+      }
+    }
+  },
+  "color": {
+    "grayscale": {
+      "resnet50": {
+        "top1_accuracy": 0.962,
+        "macro_f1": 0.9619705453967631,
+        "mean_max_confidence": 0.9531588554382324,
+        "prediction_consistency": 0.962,
+        "accuracy_change": -0.016000000000000014
+      },
+      "vit_b_16": {
+        "top1_accuracy": 0.956,
+        "macro_f1": 0.9558523313878368,
+        "mean_max_confidence": 0.9580028057098389,
+        "prediction_consistency": 0.954,
+        "accuracy_change": -0.020000000000000018
+      },
+      "clip_vit_b_32": {
+        "top1_accuracy": 0.958,
+        "macro_f1": 0.9576487581476538,
+        "mean_max_confidence": 0.30779245495796204,
+        "prediction_consistency": 0.958,
+        "accuracy_change": -0.02400000000000002
+      },
+      "clip_zeroshot": {
+        "top1_accuracy": 0.942,
+        "macro_f1": 0.9411182150582782,
+        "mean_max_confidence": 0.9283387660980225,
+        "prediction_consistency": 0.952,
+        "accuracy_change": -0.026000000000000023
+      }
+    },
+    "hue_rotate": {
+      "resnet50": {
+        "top1_accuracy": 0.942,
+        "macro_f1": 0.9422289255299929,
+        "mean_max_confidence": 0.9375695586204529,
+        "prediction_consistency": 0.948,
+        "accuracy_change": -0.03600000000000003
+      },
+      "vit_b_16": {
+        "top1_accuracy": 0.942,
+        "macro_f1": 0.9418143495792289,
+        "mean_max_confidence": 0.9325274229049683,
+        "prediction_consistency": 0.944,
+        "accuracy_change": -0.03400000000000003
+      },
+      "clip_vit_b_32": {
+        "top1_accuracy": 0.936,
+        "macro_f1": 0.9357147589252852,
+        "mean_max_confidence": 0.29180312156677246,
+        "prediction_consistency": 0.938,
+        "accuracy_change": -0.04599999999999993
+      },
+      "clip_zeroshot": {
+        "top1_accuracy": 0.926,
+        "macro_f1": 0.9244426115766778,
+        "mean_max_confidence": 0.9191219806671143,
+        "prediction_consistency": 0.93,
+        "accuracy_change": -0.041999999999999926
+      }
+    },
+    "assumptions": {
+      "extra_color_intervention": "fixed hue rotation",
+      "hue_degrees": 90.0,
+      "note": "Grayscale removes chromatic information. Hue rotation changes color identity while preserving geometry/value."
+    }
+  },
+  "patch_shuffle": {
+    "metrics": {
+      "resnet50": {
+        "top1_accuracy": 0.896,
+        "macro_f1": 0.8964304682811333,
+        "mean_max_confidence": 0.9199557900428772,
+        "prediction_consistency": 0.906,
+        "accuracy_change": -0.08199999999999996
+      },
+      "vit_b_16": {
+        "top1_accuracy": 0.902,
+        "macro_f1": 0.90143838771303,
+        "mean_max_confidence": 0.9001392126083374,
+        "prediction_consistency": 0.906,
+        "accuracy_change": -0.07399999999999995
+      },
+      "clip_vit_b_32": {
+        "top1_accuracy": 0.814,
+        "macro_f1": 0.8136229565713238,
+        "mean_max_confidence": 0.2151019275188446,
+        "prediction_consistency": 0.816,
+        "accuracy_change": -0.16800000000000004
+      },
+      "clip_zeroshot": {
+        "top1_accuracy": 0.81,
+        "macro_f1": 0.8094593652036011,
+        "mean_max_confidence": 0.7731450200080872,
+        "prediction_consistency": 0.81,
+        "accuracy_change": -0.15799999999999992
+      }
+    },
+    "permutations_saved": true,
+    "n_images": 500
+  },
+  "cue_conflict": {
+    "n_accepted": 200,
+    "n_rejected": 0,
+    "models": {
+      "resnet50": {
+        "n_shape": 91,
+        "n_texture": 57,
+        "n_other": 52,
+        "shape_bias_pct": 61.486486486486484,
+        "coverage_pct": 74.0,
+        "mean_max_confidence": 0.8026074767112732
+      },
+      "vit_b_16": {
+        "n_shape": 119,
+        "n_texture": 36,
+        "n_other": 45,
+        "shape_bias_pct": 76.7741935483871,
+        "coverage_pct": 77.5,
+        "mean_max_confidence": 0.7539230585098267
+      },
+      "clip_vit_b_32": {
+        "n_shape": 129,
+        "n_texture": 17,
+        "n_other": 54,
+        "shape_bias_pct": 88.35616438356165,
+        "coverage_pct": 73.0,
+        "mean_max_confidence": 0.19362109899520874
+      },
+      "clip_zeroshot": {
+        "n_shape": 117,
+        "n_texture": 27,
+        "n_other": 56,
+        "shape_bias_pct": 81.25,
+        "coverage_pct": 72.0,
+        "mean_max_confidence": 0.6762630939483643
+      }
+    },
+    "examples": [
+      {
+        "file": "airplane_shape__bird_texture__c7373_s1230.png",
+        "content_class": "airplane",
+        "style_class": "bird",
+        "predictions": {
+          "resnet50": "bird",
+          "vit_b_16": "bird",
+          "clip_vit_b_32": "airplane",
+          "clip_zeroshot": "ship"
+        },
+        "decision_kind": {
+          "resnet50": "texture",
+          "vit_b_16": "texture",
+          "clip_vit_b_32": "shape",
+          "clip_zeroshot": "other"
+        }
+      },
+      {
+        "file": "airplane_shape__bird_texture__c7465_s1852.png",
+        "content_class": "airplane",
+        "style_class": "bird",
+        "predictions": {
+          "resnet50": "deer",
+          "vit_b_16": "airplane",
+          "clip_vit_b_32": "airplane",
+          "clip_zeroshot": "bird"
+        },
+        "decision_kind": {
+          "resnet50": "other",
+          "vit_b_16": "shape",
+          "clip_vit_b_32": "shape",
+          "clip_zeroshot": "texture"
+        }
+      },
+      {
+        "file": "airplane_shape__bird_texture__c3437_s6836.png",
+        "content_class": "airplane",
+        "style_class": "bird",
+        "predictions": {
+          "resnet50": "bird",
+          "vit_b_16": "deer",
+          "clip_vit_b_32": "bird",
+          "clip_zeroshot": "bird"
+        },
+        "decision_kind": {
+          "resnet50": "texture",
+          "vit_b_16": "other",
+          "clip_vit_b_32": "texture",
+          "clip_zeroshot": "texture"
+        }
+      },
+      {
+        "file": "airplane_shape__bird_texture__c4893_s2687.png",
+        "content_class": "airplane",
+        "style_class": "bird",
+        "predictions": {
+          "resnet50": "bird",
+          "vit_b_16": "bird",
+          "clip_vit_b_32": "airplane",
+          "clip_zeroshot": "bird"
+        },
+        "decision_kind": {
+          "resnet50": "texture",
+          "vit_b_16": "texture",
+          "clip_vit_b_32": "shape",
+          "clip_zeroshot": "texture"
+        }
+      },
+      {
+        "file": "airplane_shape__bird_texture__c7373_s5256.png",
+        "content_class": "airplane",
+        "style_class": "bird",
+        "predictions": {
+          "resnet50": "bird",
+          "vit_b_16": "bird",
+          "clip_vit_b_32": "airplane",
+          "clip_zeroshot": "airplane"
+        },
+        "decision_kind": {
+          "resnet50": "texture",
+          "vit_b_16": "texture",
+          "clip_vit_b_32": "shape",
+          "clip_zeroshot": "shape"
+        }
+      },
+      {
+        "file": "airplane_shape__bird_texture__c2242_s1436.png",
+        "content_class": "airplane",
+        "style_class": "bird",
+        "predictions": {
+          "resnet50": "bird",
+          "vit_b_16": "bird",
+          "clip_vit_b_32": "bird",
+          "clip_zeroshot": "bird"
+        },
+        "decision_kind": {
+          "resnet50": "texture",
+          "vit_b_16": "texture",
+          "clip_vit_b_32": "texture",
+          "clip_zeroshot": "texture"
+        }
+      },
+      {
+        "file": "airplane_shape__bird_texture__c7373_s2687.png",
+        "content_class": "airplane",
+        "style_class": "bird",
+        "predictions": {
+          "resnet50": "bird",
+          "vit_b_16": "bird",
+          "clip_vit_b_32": "bird",
+          "clip_zeroshot": "bird"
+        },
+        "decision_kind": {
+          "resnet50": "texture",
+          "vit_b_16": "texture",
+          "clip_vit_b_32": "texture",
+          "clip_zeroshot": "texture"
+        }
+      },
+      {
+        "file": "airplane_shape__bird_texture__c4819_s7202.png",
+        "content_class": "airplane",
+        "style_class": "bird",
+        "predictions": {
+          "resnet50": "bird",
+          "vit_b_16": "airplane",
+          "clip_vit_b_32": "airplane",
+          "clip_zeroshot": "airplane"
+        },
+        "decision_kind": {
+          "resnet50": "texture",
+          "vit_b_16": "shape",
+          "clip_vit_b_32": "shape",
+          "clip_zeroshot": "shape"
+        }
+      },
+      {
+        "file": "airplane_shape__bird_texture__c5117_s5256.png",
+        "content_class": "airplane",
+        "style_class": "bird",
+        "predictions": {
+          "resnet50": "bird",
+          "vit_b_16": "airplane",
+          "clip_vit_b_32": "airplane",
+          "clip_zeroshot": "airplane"
+        },
+        "decision_kind": {
+          "resnet50": "texture",
+          "vit_b_16": "shape",
+          "clip_vit_b_32": "shape",
+          "clip_zeroshot": "shape"
+        }
+      },
+      {
+        "file": "airplane_shape__bird_texture__c3_s6836.png",
+        "content_class": "airplane",
+        "style_class": "bird",
+        "predictions": {
+          "resnet50": "bird",
+          "vit_b_16": "bird",
+          "clip_vit_b_32": "bird",
+          "clip_zeroshot": "bird"
+        },
+        "decision_kind": {
+          "resnet50": "texture",
+          "vit_b_16": "texture",
+          "clip_vit_b_32": "texture",
+          "clip_zeroshot": "texture"
+        }
+      },
+      {
+        "file": "airplane_shape__bird_texture__c7320_s7029.png",
+        "content_class": "airplane",
+        "style_class": "bird",
+        "predictions": {
+          "resnet50": "bird",
+          "vit_b_16": "airplane",
+          "clip_vit_b_32": "airplane",
+          "clip_zeroshot": "airplane"
+        },
+        "decision_kind": {
+          "resnet50": "texture",
+          "vit_b_16": "shape",
+          "clip_vit_b_32": "shape",
+          "clip_zeroshot": "shape"
+        }
+      },
+      {
+        "file": "airplane_shape__bird_texture__c2750_s2157.png",
+        "content_class": "airplane",
+        "style_class": "bird",
+        "predictions": {
+          "resnet50": "bird",
+          "vit_b_16": "car",
+          "clip_vit_b_32": "bird",
+          "clip_zeroshot": "bird"
+        },
+        "decision_kind": {
+          "resnet50": "texture",
+          "vit_b_16": "other",
+          "clip_vit_b_32": "texture",
+          "clip_zeroshot": "texture"
+        }
+      }
+    ]
+  },
+  "translation": {
+    "resnet50": [
+      {
+        "displacement": 0,
+        "top1_accuracy": 0.978,
+        "prediction_consistency": 1.0,
+        "macro_f1": 0.9780357293461304,
+        "mean_max_confidence": 0.9650669693946838
+      },
+      {
+        "displacement": 8,
+        "top1_accuracy": 0.9764999999999999,
+        "prediction_consistency": 0.996,
+        "macro_f1": 0.9765940512232928,
+        "mean_max_confidence": 0.9642158895730972
+      },
+      {
+        "displacement": 16,
+        "top1_accuracy": 0.9734999999999999,
+        "prediction_consistency": 0.993,
+        "macro_f1": 0.9735938743352444,
+        "mean_max_confidence": 0.9614969044923782
+      },
+      {
+        "displacement": 32,
+        "top1_accuracy": 0.9664999999999999,
+        "prediction_consistency": 0.9844999999999999,
+        "macro_f1": 0.9667065112371445,
+        "mean_max_confidence": 0.9566984325647354
+      }
+    ],
+    "vit_b_16": [
+      {
+        "displacement": 0,
+        "top1_accuracy": 0.976,
+        "prediction_consistency": 1.0,
+        "macro_f1": 0.9758961528805941,
+        "mean_max_confidence": 0.9636507034301758
+      },
+      {
+        "displacement": 8,
+        "top1_accuracy": 0.9764999999999999,
+        "prediction_consistency": 0.9835,
+        "macro_f1": 0.9764910706948879,
+        "mean_max_confidence": 0.96266108751297
+      },
+      {
+        "displacement": 16,
+        "top1_accuracy": 0.9744999999999999,
+        "prediction_consistency": 0.9904999999999999,
+        "macro_f1": 0.9744398533936387,
+        "mean_max_confidence": 0.9619062542915344
+      },
+      {
+        "displacement": 32,
+        "top1_accuracy": 0.9655,
+        "prediction_consistency": 0.9754999999999999,
+        "macro_f1": 0.9655208332799057,
+        "mean_max_confidence": 0.9565812796354294
+      }
+    ],
+    "clip_vit_b_32": [
+      {
+        "displacement": 0,
+        "top1_accuracy": 0.982,
+        "prediction_consistency": 1.0,
+        "macro_f1": 0.9819754552035352,
+        "mean_max_confidence": 0.3346548080444336
+      },
+      {
+        "displacement": 8,
+        "top1_accuracy": 0.9804999999999999,
+        "prediction_consistency": 0.9855,
+        "macro_f1": 0.9804742885178688,
+        "mean_max_confidence": 0.33205655962228775
+      },
+      {
+        "displacement": 16,
+        "top1_accuracy": 0.977,
+        "prediction_consistency": 0.9804999999999999,
+        "macro_f1": 0.9768864130146694,
+        "mean_max_confidence": 0.32485707849264145
+      },
+      {
+        "displacement": 32,
+        "top1_accuracy": 0.9745,
+        "prediction_consistency": 0.9795,
+        "macro_f1": 0.9744229617746352,
+        "mean_max_confidence": 0.31662967056035995
+      }
+    ],
+    "clip_zeroshot": [
+      {
+        "displacement": 0,
+        "top1_accuracy": 0.968,
+        "prediction_consistency": 1.0,
+        "macro_f1": 0.967524079946368,
+        "mean_max_confidence": 0.9426957964897156
+      },
+      {
+        "displacement": 8,
+        "top1_accuracy": 0.9690000000000001,
+        "prediction_consistency": 0.9810000000000001,
+        "macro_f1": 0.9685468894139073,
+        "mean_max_confidence": 0.9416994452476501
+      },
+      {
+        "displacement": 16,
+        "top1_accuracy": 0.9724999999999999,
+        "prediction_consistency": 0.9794999999999999,
+        "macro_f1": 0.9722217363695254,
+        "mean_max_confidence": 0.9384716898202896
+      },
+      {
+        "displacement": 32,
+        "top1_accuracy": 0.956,
+        "prediction_consistency": 0.973,
+        "macro_f1": 0.9554846653216484,
+        "mean_max_confidence": 0.9275072664022446
+      }
+    ]
+  },
+  "feature_similarity": {
+    "definition": "mean cosine similarity between clean and transformed backbone features",
+    "notes": [
+      "Translation stability uses a single representative shift (16px right).",
+      "Cue-conflict stability compares stylized features to the content image features.",
+      "CLIP zeroshot uses the same visual features as clip_vit_b_32, so it is omitted here."
+    ],
+    "results": {
+      "resnet50": {
+        "grayscale": 0.7883326194107875,
+        "translation_16px_right": 0.9439566787442459,
+        "patch_shuffle": 0.7150605905468383,
+        "cue_conflict_vs_content": 0.35134028983874255
+      },
+      "vit_b_16": {
+        "grayscale": 0.7392756172297131,
+        "translation_16px_right": 0.9750801836721195,
+        "patch_shuffle": 0.6531811252892142,
+        "cue_conflict_vs_content": 0.31429655844924165
+      },
+      "clip_vit_b_32": {
+        "grayscale": 0.8931966934939839,
+        "translation_16px_right": 0.9657558082278122,
+        "patch_shuffle": 0.7359238028302252,
+        "cue_conflict_vs_content": 0.7115967607985172
+      }
+    }
+  }
+}

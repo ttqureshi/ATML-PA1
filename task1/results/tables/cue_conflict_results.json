@@ -1,0 +1,244 @@
+{
+  "n_accepted": 200,
+  "n_rejected": 0,
+  "models": {
+    "resnet50": {
+      "n_shape": 91,
+      "n_texture": 57,
+      "n_other": 52,
+      "shape_bias_pct": 61.486486486486484,
+      "coverage_pct": 74.0,
+      "mean_max_confidence": 0.8026074767112732
+    },
+    "vit_b_16": {
+      "n_shape": 119,
+      "n_texture": 36,
+      "n_other": 45,
+      "shape_bias_pct": 76.7741935483871,
+      "coverage_pct": 77.5,
+      "mean_max_confidence": 0.7539230585098267
+    },
+    "clip_vit_b_32": {
+      "n_shape": 129,
+      "n_texture": 17,
+      "n_other": 54,
+      "shape_bias_pct": 88.35616438356165,
+      "coverage_pct": 73.0,
+      "mean_max_confidence": 0.19362109899520874
+    },
+    "clip_zeroshot": {
+      "n_shape": 117,
+      "n_texture": 27,
+      "n_other": 56,
+      "shape_bias_pct": 81.25,
+      "coverage_pct": 72.0,
+      "mean_max_confidence": 0.6762630939483643
+    }
+  },
+  "examples": [
+    {
+      "file": "airplane_shape__bird_texture__c7373_s1230.png",
+      "content_class": "airplane",
+      "style_class": "bird",
+      "predictions": {
+        "resnet50": "bird",
+        "vit_b_16": "bird",
+        "clip_vit_b_32": "airplane",
+        "clip_zeroshot": "ship"
+      },
+      "decision_kind": {
+        "resnet50": "texture",
+        "vit_b_16": "texture",
+        "clip_vit_b_32": "shape",
+        "clip_zeroshot": "other"
+      }
+    },
+    {
+      "file": "airplane_shape__bird_texture__c7465_s1852.png",
+      "content_class": "airplane",
+      "style_class": "bird",
+      "predictions": {
+        "resnet50": "deer",
+        "vit_b_16": "airplane",
+        "clip_vit_b_32": "airplane",
+        "clip_zeroshot": "bird"
+      },
+      "decision_kind": {
+        "resnet50": "other",
+        "vit_b_16": "shape",
+        "clip_vit_b_32": "shape",
+        "clip_zeroshot": "texture"
+      }
+    },
+    {
+      "file": "airplane_shape__bird_texture__c3437_s6836.png",
+      "content_class": "airplane",
+      "style_class": "bird",
+      "predictions": {
+        "resnet50": "bird",
+        "vit_b_16": "deer",
+        "clip_vit_b_32": "bird",
+        "clip_zeroshot": "bird"
+      },
+      "decision_kind": {
+        "resnet50": "texture",
+        "vit_b_16": "other",
+        "clip_vit_b_32": "texture",
+        "clip_zeroshot": "texture"
+      }
+    },
+    {
+      "file": "airplane_shape__bird_texture__c4893_s2687.png",
+      "content_class": "airplane",
+      "style_class": "bird",
+      "predictions": {
+        "resnet50": "bird",
+        "vit_b_16": "bird",
+        "clip_vit_b_32": "airplane",
+        "clip_zeroshot": "bird"
+      },
+      "decision_kind": {
+        "resnet50": "texture",
+        "vit_b_16": "texture",
+        "clip_vit_b_32": "shape",
+        "clip_zeroshot": "texture"
+      }
+    },
+    {
+      "file": "airplane_shape__bird_texture__c7373_s5256.png",
+      "content_class": "airplane",
+      "style_class": "bird",
+      "predictions": {
+        "resnet50": "bird",
+        "vit_b_16": "bird",
+        "clip_vit_b_32": "airplane",
+        "clip_zeroshot": "airplane"
+      },
+      "decision_kind": {
+        "resnet50": "texture",
+        "vit_b_16": "texture",
+        "clip_vit_b_32": "shape",
+        "clip_zeroshot": "shape"
+      }
+    },
+    {
+      "file": "airplane_shape__bird_texture__c2242_s1436.png",
+      "content_class": "airplane",
+      "style_class": "bird",
+      "predictions": {
+        "resnet50": "bird",
+        "vit_b_16": "bird",
+        "clip_vit_b_32": "bird",
+        "clip_zeroshot": "bird"
+      },
+      "decision_kind": {
+        "resnet50": "texture",
+        "vit_b_16": "texture",
+        "clip_vit_b_32": "texture",
+        "clip_zeroshot": "texture"
+      }
+    },
+    {
+      "file": "airplane_shape__bird_texture__c7373_s2687.png",
+      "content_class": "airplane",
+      "style_class": "bird",
+      "predictions": {
+        "resnet50": "bird",
+        "vit_b_16": "bird",
+        "clip_vit_b_32": "bird",
+        "clip_zeroshot": "bird"
+      },
+      "decision_kind": {
+        "resnet50": "texture",
+        "vit_b_16": "texture",
+        "clip_vit_b_32": "texture",
+        "clip_zeroshot": "texture"
+      }
+    },
+    {
+      "file": "airplane_shape__bird_texture__c4819_s7202.png",
+      "content_class": "airplane",
+      "style_class": "bird",
+      "predictions": {
+        "resnet50": "bird",
+        "vit_b_16": "airplane",
+        "clip_vit_b_32": "airplane",
+        "clip_zeroshot": "airplane"
+      },
+      "decision_kind": {
+        "resnet50": "texture",
+        "vit_b_16": "shape",
+        "clip_vit_b_32": "shape",
+        "clip_zeroshot": "shape"
+      }
+    },
+    {
+      "file": "airplane_shape__bird_texture__c5117_s5256.png",
+      "content_class": "airplane",
+      "style_class": "bird",
+      "predictions": {
+        "resnet50": "bird",
+        "vit_b_16": "airplane",
+        "clip_vit_b_32": "airplane",
+        "clip_zeroshot": "airplane"
+      },
+      "decision_kind": {
+        "resnet50": "texture",
+        "vit_b_16": "shape",
+        "clip_vit_b_32": "shape",
+        "clip_zeroshot": "shape"
+      }
+    },
+    {
+      "file": "airplane_shape__bird_texture__c3_s6836.png",
+      "content_class": "airplane",
+      "style_class": "bird",
+      "predictions": {
+        "resnet50": "bird",
+        "vit_b_16": "bird",
+        "clip_vit_b_32": "bird",
+        "clip_zeroshot": "bird"
+      },
+      "decision_kind": {
+        "resnet50": "texture",
+        "vit_b_16": "texture",
+        "clip_vit_b_32": "texture",
+        "clip_zeroshot": "texture"
+      }
+    },
+    {
+      "file": "airplane_shape__bird_texture__c7320_s7029.png",
+      "content_class": "airplane",
+      "style_class": "bird",
+      "predictions": {
+        "resnet50": "bird",
+        "vit_b_16": "airplane",
+        "clip_vit_b_32": "airplane",
+        "clip_zeroshot": "airplane"
+      },
+      "decision_kind": {
+        "resnet50": "texture",
+        "vit_b_16": "shape",
+        "clip_vit_b_32": "shape",
+        "clip_zeroshot": "shape"
+      }
+    },
+    {
+      "file": "airplane_shape__bird_texture__c2750_s2157.png",
+      "content_class": "airplane",
+      "style_class": "bird",
+      "predictions": {
+        "resnet50": "bird",
+        "vit_b_16": "car",
+        "clip_vit_b_32": "bird",
+        "clip_zeroshot": "bird"
+      },
+      "decision_kind": {
+        "resnet50": "texture",
+        "vit_b_16": "other",
+        "clip_vit_b_32": "texture",
+        "clip_zeroshot": "texture"
+      }
+    }
+  ]
+}
