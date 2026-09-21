@@ -1,0 +1,38 @@
+# Datasets and large artifacts (do not commit)
+data/
+datasets/
+*.tar.gz
+*.tgz
+*.zip
+ATML-PA1.pdf
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+
+# Experiment caches / checkpoints / weights
+checkpoints/
+*.pth
+*.pt
+wandb/
+runs/
+.cache/
+task1/weights/
+
+# Keep small result tables/figures; ignore bulky arrays and cue images
+task1/results/features/
+task1/results/images/
+task1/results/cue_conflicts/
+task*/results/**/*.npy
+task*/results/**/*.npz
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
