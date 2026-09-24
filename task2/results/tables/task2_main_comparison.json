@@ -1,0 +1,157 @@
+{
+  "note": "Sketch labels used only in this final evaluation stage. Do not revise training settings based on these numbers.",
+  "table": [
+    {
+      "run": "source_only_best",
+      "method": "source_only",
+      "source_val_per_domain": {
+        "photo": {
+          "accuracy": 0.9760479041916168,
+          "macro_f1": 0.9713374992665609
+        },
+        "art_painting": {
+          "accuracy": 0.8951219512195122,
+          "macro_f1": 0.8870395796358567
+        },
+        "cartoon": {
+          "accuracy": 0.9402985074626866,
+          "macro_f1": 0.9410303904519174
+        }
+      },
+      "mean_source_accuracy": 0.9371561209579387,
+      "mean_source_macro_f1": 0.9331358231181116,
+      "target_accuracy": 0.6653092389921099,
+      "target_macro_f1": 0.6828779630638692,
+      "target_accuracy_change_vs_source_only": 0.0,
+      "domain_separability": 0.9958791208791209
+    },
+    {
+      "run": "dan_lambda1.0_best",
+      "method": "dan",
+      "source_val_per_domain": {
+        "photo": {
+          "accuracy": 0.9760479041916168,
+          "macro_f1": 0.9712383421543983
+        },
+        "art_painting": {
+          "accuracy": 0.9121951219512195,
+          "macro_f1": 0.9103462476871773
+        },
+        "cartoon": {
+          "accuracy": 0.9381663113006397,
+          "macro_f1": 0.9452989146329797
+        }
+      },
+      "mean_source_accuracy": 0.9421364458144921,
+      "mean_source_macro_f1": 0.9422945014915185,
+      "target_accuracy": 0.7485365232883685,
+      "target_macro_f1": 0.7243125320024592,
+      "target_accuracy_change_vs_source_only": 0.08322728429625859,
+      "domain_separability": 0.9519230769230769
+    },
+    {
+      "run": "dann_best",
+      "method": "dann",
+      "source_val_per_domain": {
+        "photo": {
+          "accuracy": 0.9670658682634731,
+          "macro_f1": 0.9615110966058028
+        },
+        "art_painting": {
+          "accuracy": 0.9170731707317074,
+          "macro_f1": 0.9191197105524366
+        },
+        "cartoon": {
+          "accuracy": 0.9466950959488273,
+          "macro_f1": 0.9511797751296294
+        }
+      },
+      "mean_source_accuracy": 0.9436113783146692,
+      "mean_source_macro_f1": 0.9439368607626228,
+      "target_accuracy": 0.27437006871977604,
+      "target_macro_f1": 0.34200218644868924,
+      "target_accuracy_change_vs_source_only": -0.3909391702723339,
+      "domain_separability": 0.9945054945054945
+    },
+    {
+      "run": "cdan_best",
+      "method": "cdan",
+      "source_val_per_domain": {
+        "photo": {
+          "accuracy": 0.9670658682634731,
+          "macro_f1": 0.9612831865967418
+        },
+        "art_painting": {
+          "accuracy": 0.9365853658536586,
+          "macro_f1": 0.9317148242021941
+        },
+        "cartoon": {
+          "accuracy": 0.9424307036247335,
+          "macro_f1": 0.9489158759247491
+        }
+      },
+      "mean_source_accuracy": 0.9486939792472885,
+      "mean_source_macro_f1": 0.947304628907895,
+      "target_accuracy": 0.5311784168999746,
+      "target_macro_f1": 0.5536990765447142,
+      "target_accuracy_change_vs_source_only": -0.13413082209213534,
+      "domain_separability": 0.9903846153846154
+    },
+    {
+      "run": "dan_lambda0.1_best",
+      "method": "dan",
+      "source_val_per_domain": {
+        "photo": {
+          "accuracy": 0.9790419161676647,
+          "macro_f1": 0.9748303075638756
+        },
+        "art_painting": {
+          "accuracy": 0.9073170731707317,
+          "macro_f1": 0.9051885306548265
+        },
+        "cartoon": {
+          "accuracy": 0.9317697228144989,
+          "macro_f1": 0.9363936071022458
+        }
+      },
+      "mean_source_accuracy": 0.9393762373842985,
+      "mean_source_macro_f1": 0.9388041484403159,
+      "target_accuracy": 0.6617459913463986,
+      "target_macro_f1": 0.66477885284625,
+      "target_accuracy_change_vs_source_only": -0.003563247645711365,
+      "domain_separability": 0.9945054945054945
+    },
+    {
+      "run": "dan_lambda10.0_best",
+      "method": "dan",
+      "source_val_per_domain": {
+        "photo": {
+          "accuracy": 0.9101796407185628,
+          "macro_f1": 0.89427159604161
+        },
+        "art_painting": {
+          "accuracy": 0.8195121951219512,
+          "macro_f1": 0.8238304178348577
+        },
+        "cartoon": {
+          "accuracy": 0.9040511727078892,
+          "macro_f1": 0.907211608510547
+        }
+      },
+      "mean_source_accuracy": 0.8779143361828011,
+      "mean_source_macro_f1": 0.8751045407956716,
+      "target_accuracy": 0.6762534996182235,
+      "target_macro_f1": 0.6765606227179771,
+      "target_accuracy_change_vs_source_only": 0.010944260626113533,
+      "domain_separability": 0.929945054945055
+    }
+  ],
+  "runs": {
+    "source_only_best": "eval_source_only_best.json",
+    "dan_lambda1.0_best": "eval_dan_lambda1.0_best.json",
+    "dann_best": "eval_dann_best.json",
+    "cdan_best": "eval_cdan_best.json",
+    "dan_lambda0.1_best": "eval_dan_lambda0.1_best.json",
+    "dan_lambda10.0_best": "eval_dan_lambda10.0_best.json"
+  }
+}

@@ -1,0 +1,5 @@
+# DAN — multi-kernel MMD alignment on the 512-d feature.
+method: dan
+dan:
+  lambda_mmd: 1.0
+  kernel_multipliers: [0.5, 1.0, 2.0]

@@ -1,0 +1,90 @@
+# Task 2 — shared training / evaluation settings.
+#
+# ASSUMPTIONS / DESIGN CHOICES (allowed by the assignment):
+# 1. Controlled study uses λ_MMD ∈ {0.1, 1, 10} for DAN (not GRL strength).
+#    Main comparison always uses λ_MMD = 1; study runs are analysis-only.
+# 2. PACS lives at data/pacs/ with standard domain/class folders.
+# 3. Source-only checkpoint path is fixed so Task 3 can load it unchanged.
+# 4. Domain separability logistic regression: sklearn, C=1, 70/30, seed 6304.
+# 6. DANN/CDAN: L2-normalize features on the discriminator path only
+#    (AdamW+GRL otherwise explodes with seed 6304). CE / MMD use raw features.
+# 7. Gradient clip max_norm=20 for the same stability reason.
+
+seed: 6304
+
+data:
+  root: data/pacs
+  splits: shared/splits/pacs_sketch_seed6304.json
+  image_size: 224
+  resize_size: 256
+  train_frac: 0.8
+
+model:
+  backbone: resnet18
+  weights: IMAGENET1K_V1
+  num_classes: 7
+  feature_dim: 512
+
+training:
+  max_epochs: 30
+  lr: 0.0001
+  weight_decay: 0.0001
+  early_stop_patience: 5
+  # Domain-balanced batching (assignment):
+  source_per_domain: 8   # 8 photo + 8 art + 8 cartoon = 24 source
+  target_batch_size: 24  # equal total source and target mass
+  num_workers: 2
+  # One "source epoch" = enough steps to cover ~1 pass over the largest source train set.
+  # We define steps_per_epoch from the mean source-train size / source_per_domain.
+  optimizer: adamw
+  # Stability (does not change the assignment loss): clip grad norm to stop rare
+  # DANN/CDAN GRL feedback explosions observed with seed 6304.
+  grad_clip_norm: 20.0
+
+methods:
+  source_only:
+    name: source_only
+  dan:
+    name: dan
+    lambda_mmd: 1.0
+    # Multi-kernel RBF bandwidths relative to median pairwise squared distance.
+    kernel_multipliers: [0.5, 1.0, 2.0]
+  dann:
+    name: dann
+    lambda_domain: 1.0
+    grl_gamma: 10.0       # α(p) = 2/(1+exp(-gamma*p)) - 1
+    grl_max: 1.0          # scale α by this (used in controlled GRL study if chosen)
+    disc_hidden: 256
+    disc_dropout: 0.5
+  cdan:
+    name: cdan
+    lambda_domain: 1.0
+    grl_gamma: 10.0
+    grl_max: 1.0
+    disc_hidden: 256
+    disc_dropout: 0.5
+
+# Main comparison methods (run in this order).
+main_methods: [source_only, dan, dann, cdan]
+
+# Controlled design study (DAN λ). Target metrics are analysis-only.
+controlled_study:
+  method: dan
+  param: lambda_mmd
+  values: [0.1, 1.0, 10.0]
+
+evaluation:
+  domain_separability:
+    test_size: 0.3
+    C: 1.0
+    seed: 6304
+  # Equal number of source-val and target features for the binary LR.
+  balance_features: true
+
+paths:
+  checkpoints_dir: task2/results/checkpoints
+  tables_dir: task2/results/tables
+  figures_dir: task2/results/figures
+  curves_dir: task2/results/curves
+  # Task 3 ERM baseline — do not retrain under a different config later.
+  source_only_checkpoint: task2/results/checkpoints/source_only_best.pt

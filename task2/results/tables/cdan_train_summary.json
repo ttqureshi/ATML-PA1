@@ -1,0 +1,29 @@
+{
+  "run_tag": "cdan",
+  "method": "cdan",
+  "checkpoint": "task2/results/checkpoints/cdan_best.pt",
+  "best_epoch": 18,
+  "best_mean_source_val_macro_f1": 0.947304628907895,
+  "best_source_val": {
+    "per_domain": {
+      "photo": {
+        "accuracy": 0.9670658682634731,
+        "macro_f1": 0.9612831865967418,
+        "n": 334
+      },
+      "art_painting": {
+        "accuracy": 0.9365853658536586,
+        "macro_f1": 0.9317148242021941,
+        "n": 410
+      },
+      "cartoon": {
+        "accuracy": 0.9424307036247335,
+        "macro_f1": 0.9489158759247491,
+        "n": 469
+      }
+    },
+    "mean_macro_f1": 0.947304628907895,
+    "mean_accuracy": 0.9486939792472885
+  },
+  "history_path": "task2/results/curves/cdan_history.json"
+}

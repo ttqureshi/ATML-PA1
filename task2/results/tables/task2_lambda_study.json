@@ -1,0 +1,76 @@
+{
+  "table": [
+    {
+      "run": "dan_lambda1.0_best",
+      "method": "dan",
+      "source_val_per_domain": {
+        "photo": {
+          "accuracy": 0.9760479041916168,
+          "macro_f1": 0.9712383421543983
+        },
+        "art_painting": {
+          "accuracy": 0.9121951219512195,
+          "macro_f1": 0.9103462476871773
+        },
+        "cartoon": {
+          "accuracy": 0.9381663113006397,
+          "macro_f1": 0.9452989146329797
+        }
+      },
+      "mean_source_accuracy": 0.9421364458144921,
+      "mean_source_macro_f1": 0.9422945014915185,
+      "target_accuracy": 0.7485365232883685,
+      "target_macro_f1": 0.7243125320024592,
+      "target_accuracy_change_vs_source_only": 0.08322728429625859,
+      "domain_separability": 0.9519230769230769
+    },
+    {
+      "run": "dan_lambda0.1_best",
+      "method": "dan",
+      "source_val_per_domain": {
+        "photo": {
+          "accuracy": 0.9790419161676647,
+          "macro_f1": 0.9748303075638756
+        },
+        "art_painting": {
+          "accuracy": 0.9073170731707317,
+          "macro_f1": 0.9051885306548265
+        },
+        "cartoon": {
+          "accuracy": 0.9317697228144989,
+          "macro_f1": 0.9363936071022458
+        }
+      },
+      "mean_source_accuracy": 0.9393762373842985,
+      "mean_source_macro_f1": 0.9388041484403159,
+      "target_accuracy": 0.6617459913463986,
+      "target_macro_f1": 0.66477885284625,
+      "target_accuracy_change_vs_source_only": -0.003563247645711365,
+      "domain_separability": 0.9945054945054945
+    },
+    {
+      "run": "dan_lambda10.0_best",
+      "method": "dan",
+      "source_val_per_domain": {
+        "photo": {
+          "accuracy": 0.9101796407185628,
+          "macro_f1": 0.89427159604161
+        },
+        "art_painting": {
+          "accuracy": 0.8195121951219512,
+          "macro_f1": 0.8238304178348577
+        },
+        "cartoon": {
+          "accuracy": 0.9040511727078892,
+          "macro_f1": 0.907211608510547
+        }
+      },
+      "mean_source_accuracy": 0.8779143361828011,
+      "mean_source_macro_f1": 0.8751045407956716,
+      "target_accuracy": 0.6762534996182235,
+      "target_macro_f1": 0.6765606227179771,
+      "target_accuracy_change_vs_source_only": 0.010944260626113533,
+      "domain_separability": 0.929945054945055
+    }
+  ]
+}

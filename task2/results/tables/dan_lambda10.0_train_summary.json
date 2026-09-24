@@ -1,0 +1,29 @@
+{
+  "run_tag": "dan_lambda10.0",
+  "method": "dan",
+  "checkpoint": "task2/results/checkpoints/dan_lambda10.0_best.pt",
+  "best_epoch": 8,
+  "best_mean_source_val_macro_f1": 0.8751045407956716,
+  "best_source_val": {
+    "per_domain": {
+      "photo": {
+        "accuracy": 0.9101796407185628,
+        "macro_f1": 0.89427159604161,
+        "n": 334
+      },
+      "art_painting": {
+        "accuracy": 0.8195121951219512,
+        "macro_f1": 0.8238304178348577,
+        "n": 410
+      },
+      "cartoon": {
+        "accuracy": 0.9040511727078892,
+        "macro_f1": 0.907211608510547,
+        "n": 469
+      }
+    },
+    "mean_macro_f1": 0.8751045407956716,
+    "mean_accuracy": 0.8779143361828011
+  },
+  "history_path": "task2/results/curves/dan_lambda10.0_history.json"
+}

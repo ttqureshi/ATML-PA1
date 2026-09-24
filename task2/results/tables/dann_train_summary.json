@@ -1,0 +1,29 @@
+{
+  "run_tag": "dann",
+  "method": "dann",
+  "checkpoint": "task2/results/checkpoints/dann_best.pt",
+  "best_epoch": 13,
+  "best_mean_source_val_macro_f1": 0.9439368607626228,
+  "best_source_val": {
+    "per_domain": {
+      "photo": {
+        "accuracy": 0.9670658682634731,
+        "macro_f1": 0.9615110966058028,
+        "n": 334
+      },
+      "art_painting": {
+        "accuracy": 0.9170731707317074,
+        "macro_f1": 0.9191197105524366,
+        "n": 410
+      },
+      "cartoon": {
+        "accuracy": 0.9466950959488273,
+        "macro_f1": 0.9511797751296294,
+        "n": 469
+      }
+    },
+    "mean_macro_f1": 0.9439368607626228,
+    "mean_accuracy": 0.9436113783146692
+  },
+  "history_path": "task2/results/curves/dann_history.json"
+}

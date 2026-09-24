@@ -8,5 +8,7 @@ matplotlib>=3.7.0
 Pillow>=9.5.0
 PyYAML>=6.0
 tqdm>=4.65.0
-# Optional: only needed if you set representation.method: umap
+# Optional: Task 1 representation.method: umap
 # umap-learn>=0.5.5
+# Optional: download PACS zip on Colab
+# gdown>=5.0.0
