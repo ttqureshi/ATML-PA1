@@ -1,0 +1,220 @@
+{
+  "checkpoint": "task3/results/checkpoints/dan_dg_lambda10.0_best.pt",
+  "method": "dan_dg",
+  "run_tag": "dan_dg_lambda10.0",
+  "train_blob_meta": {
+    "epoch": 1,
+    "mean_source_val_macro_f1": 0.12154629997188483,
+    "method": "dan_dg",
+    "run_tag": "dan_dg_lambda10.0"
+  },
+  "source_val": {
+    "per_domain": {
+      "photo": {
+        "accuracy": 0.16766467065868262,
+        "macro_f1": 0.12357874904635895,
+        "n": 334
+      },
+      "art_painting": {
+        "accuracy": 0.2073170731707317,
+        "macro_f1": 0.1048380422728702,
+        "n": 410
+      },
+      "cartoon": {
+        "accuracy": 0.2046908315565032,
+        "macro_f1": 0.13622210859642536,
+        "n": 469
+      }
+    },
+    "mean_macro_f1": 0.12154629997188483,
+    "mean_accuracy": 0.19322419179530584,
+    "worst_macro_f1": 0.1048380422728702,
+    "worst_macro_f1_domain": "art_painting",
+    "worst_accuracy": 0.16766467065868262,
+    "worst_accuracy_domain": "photo"
+  },
+  "source_domain_separability": {
+    "held_out_accuracy": 0.7308970099667774,
+    "chance": 0.3333333333333333,
+    "n_per_domain": 334,
+    "test_size": 0.3,
+    "C": 1.0,
+    "seed": 6304,
+    "domains": [
+      "photo",
+      "art_painting",
+      "cartoon"
+    ]
+  },
+  "sharpness": {
+    "delta_sharp": 3.6836663484573364,
+    "loss_at_theta": 1.8984054327011108,
+    "loss_at_theta_plus_eps": 5.582071781158447,
+    "rho": 0.05,
+    "grad_norm": 11.91081714630127,
+    "n": 96
+  },
+  "note": "Sketch labels used only in this final evaluation stage. Do not revise training settings based on these numbers.",
+  "sketch": {
+    "accuracy": 0.24484601679816748,
+    "macro_f1": 0.10023830652340228,
+    "n": 3929
+  },
+  "sketch_per_class": {
+    "dog": {
+      "accuracy": 0.9481865284974094,
+      "n": 772
+    },
+    "elephant": {
+      "accuracy": 0.0,
+      "n": 740
+    },
+    "giraffe": {
+      "accuracy": 0.300132802124834,
+      "n": 753
+    },
+    "guitar": {
+      "accuracy": 0.0,
+      "n": 608
+    },
+    "horse": {
+      "accuracy": 0.003676470588235294,
+      "n": 816
+    },
+    "house": {
+      "accuracy": 0.0,
+      "n": 80
+    },
+    "person": {
+      "accuracy": 0.00625,
+      "n": 160
+    }
+  },
+  "sketch_confusions_top": [
+    {
+      "true": "horse",
+      "pred": "dog",
+      "count": 787
+    },
+    {
+      "true": "elephant",
+      "pred": "dog",
+      "count": 718
+    },
+    {
+      "true": "giraffe",
+      "pred": "dog",
+      "count": 523
+    },
+    {
+      "true": "guitar",
+      "pred": "giraffe",
+      "count": 369
+    },
+    {
+      "true": "guitar",
+      "pred": "dog",
+      "count": 237
+    },
+    {
+      "true": "person",
+      "pred": "dog",
+      "count": 114
+    },
+    {
+      "true": "person",
+      "pred": "giraffe",
+      "count": 40
+    },
+    {
+      "true": "house",
+      "pred": "person",
+      "count": 34
+    },
+    {
+      "true": "dog",
+      "pred": "giraffe",
+      "count": 32
+    },
+    {
+      "true": "house",
+      "pred": "dog",
+      "count": 30
+    },
+    {
+      "true": "horse",
+      "pred": "giraffe",
+      "count": 24
+    },
+    {
+      "true": "house",
+      "pred": "horse",
+      "count": 15
+    }
+  ],
+  "sketch_confusion_matrix": [
+    [
+      732,
+      0,
+      32,
+      0,
+      8,
+      0,
+      0
+    ],
+    [
+      718,
+      0,
+      10,
+      0,
+      10,
+      0,
+      2
+    ],
+    [
+      523,
+      0,
+      226,
+      0,
+      3,
+      0,
+      1
+    ],
+    [
+      237,
+      0,
+      369,
+      0,
+      0,
+      0,
+      2
+    ],
+    [
+      787,
+      0,
+      24,
+      0,
+      3,
+      0,
+      2
+    ],
+    [
+      30,
+      0,
+      1,
+      0,
+      15,
+      0,
+      34
+    ],
+    [
+      114,
+      0,
+      40,
+      0,
+      5,
+      0,
+      1
+    ]
+  ]
+}

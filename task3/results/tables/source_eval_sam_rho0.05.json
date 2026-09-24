@@ -1,0 +1,58 @@
+{
+  "checkpoint": "task3/results/checkpoints/sam_rho0.05_best.pt",
+  "method": "sam",
+  "run_tag": "sam_rho0.05",
+  "train_blob_meta": {
+    "epoch": 12,
+    "mean_source_val_macro_f1": 0.9490979928044804,
+    "method": "sam",
+    "run_tag": "sam_rho0.05"
+  },
+  "source_val": {
+    "per_domain": {
+      "photo": {
+        "accuracy": 0.9700598802395209,
+        "macro_f1": 0.9651747192368572,
+        "n": 334
+      },
+      "art_painting": {
+        "accuracy": 0.9317073170731708,
+        "macro_f1": 0.9298014990626281,
+        "n": 410
+      },
+      "cartoon": {
+        "accuracy": 0.9488272921108742,
+        "macro_f1": 0.9523177601139556,
+        "n": 469
+      }
+    },
+    "mean_macro_f1": 0.9490979928044804,
+    "mean_accuracy": 0.9501981631411885,
+    "worst_macro_f1": 0.9298014990626281,
+    "worst_macro_f1_domain": "art_painting",
+    "worst_accuracy": 0.9317073170731708,
+    "worst_accuracy_domain": "art_painting"
+  },
+  "source_domain_separability": {
+    "held_out_accuracy": 0.8803986710963455,
+    "chance": 0.3333333333333333,
+    "n_per_domain": 334,
+    "test_size": 0.3,
+    "C": 1.0,
+    "seed": 6304,
+    "domains": [
+      "photo",
+      "art_painting",
+      "cartoon"
+    ]
+  },
+  "sharpness": {
+    "delta_sharp": 0.14238297939300537,
+    "loss_at_theta": 0.21807551383972168,
+    "loss_at_theta_plus_eps": 0.36045849323272705,
+    "rho": 0.05,
+    "grad_norm": 2.5316967964172363,
+    "n": 96
+  },
+  "note": "No Sketch loaded in this script."
+}

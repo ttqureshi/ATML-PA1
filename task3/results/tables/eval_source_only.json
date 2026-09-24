@@ -1,0 +1,230 @@
+{
+  "checkpoint": "task2/results/checkpoints/source_only_best.pt",
+  "method": "erm",
+  "run_tag": "source_only",
+  "train_blob_meta": {
+    "epoch": 4,
+    "mean_source_val_macro_f1": 0.9331358231181116,
+    "method": "source_only",
+    "run_tag": "source_only"
+  },
+  "source_val": {
+    "per_domain": {
+      "photo": {
+        "accuracy": 0.9760479041916168,
+        "macro_f1": 0.9713374992665609,
+        "n": 334
+      },
+      "art_painting": {
+        "accuracy": 0.8951219512195122,
+        "macro_f1": 0.8870395796358567,
+        "n": 410
+      },
+      "cartoon": {
+        "accuracy": 0.9402985074626866,
+        "macro_f1": 0.9410303904519174,
+        "n": 469
+      }
+    },
+    "mean_macro_f1": 0.9331358231181116,
+    "mean_accuracy": 0.9371561209579387,
+    "worst_macro_f1": 0.8870395796358567,
+    "worst_macro_f1_domain": "art_painting",
+    "worst_accuracy": 0.8951219512195122,
+    "worst_accuracy_domain": "art_painting"
+  },
+  "source_domain_separability": {
+    "held_out_accuracy": 0.8970099667774086,
+    "chance": 0.3333333333333333,
+    "n_per_domain": 334,
+    "test_size": 0.3,
+    "C": 1.0,
+    "seed": 6304,
+    "domains": [
+      "photo",
+      "art_painting",
+      "cartoon"
+    ]
+  },
+  "sharpness": {
+    "delta_sharp": 0.3167409300804138,
+    "loss_at_theta": 0.20892393589019775,
+    "loss_at_theta_plus_eps": 0.5256648659706116,
+    "rho": 0.05,
+    "grad_norm": 4.604384422302246,
+    "n": 96
+  },
+  "note": "Sketch labels used only in this final evaluation stage. Do not revise training settings based on these numbers.",
+  "sketch": {
+    "accuracy": 0.6653092389921099,
+    "macro_f1": 0.6828779630638692,
+    "n": 3929
+  },
+  "sketch_per_class": {
+    "dog": {
+      "accuracy": 0.5932642487046632,
+      "n": 772
+    },
+    "elephant": {
+      "accuracy": 0.7662162162162162,
+      "n": 740
+    },
+    "giraffe": {
+      "accuracy": 0.3293492695883134,
+      "n": 753
+    },
+    "guitar": {
+      "accuracy": 0.9588815789473685,
+      "n": 608
+    },
+    "horse": {
+      "accuracy": 0.6862745098039216,
+      "n": 816
+    },
+    "house": {
+      "accuracy": 0.8125,
+      "n": 80
+    },
+    "person": {
+      "accuracy": 0.83125,
+      "n": 160
+    }
+  },
+  "sketch_confusions_top": [
+    {
+      "true": "giraffe",
+      "pred": "dog",
+      "count": 189
+    },
+    {
+      "true": "horse",
+      "pred": "dog",
+      "count": 159
+    },
+    {
+      "true": "giraffe",
+      "pred": "horse",
+      "count": 150
+    },
+    {
+      "true": "elephant",
+      "pred": "dog",
+      "count": 145
+    },
+    {
+      "true": "dog",
+      "pred": "elephant",
+      "count": 142
+    },
+    {
+      "true": "dog",
+      "pred": "horse",
+      "count": 113
+    },
+    {
+      "true": "giraffe",
+      "pred": "person",
+      "count": 86
+    },
+    {
+      "true": "horse",
+      "pred": "elephant",
+      "count": 65
+    },
+    {
+      "true": "dog",
+      "pred": "person",
+      "count": 59
+    },
+    {
+      "true": "giraffe",
+      "pred": "guitar",
+      "count": 42
+    },
+    {
+      "true": "giraffe",
+      "pred": "elephant",
+      "count": 38
+    },
+    {
+      "true": "horse",
+      "pred": "person",
+      "count": 27
+    }
+  ],
+  "sketch_confusion_matrix": [
+    [
+      458,
+      142,
+      0,
+      0,
+      113,
+      0,
+      59
+    ],
+    [
+      145,
+      567,
+      0,
+      0,
+      12,
+      0,
+      16
+    ],
+    [
+      189,
+      38,
+      248,
+      42,
+      150,
+      0,
+      86
+    ],
+    [
+      2,
+      10,
+      2,
+      583,
+      0,
+      0,
+      11
+    ],
+    [
+      159,
+      65,
+      0,
+      4,
+      560,
+      1,
+      27
+    ],
+    [
+      0,
+      5,
+      0,
+      1,
+      0,
+      65,
+      9
+    ],
+    [
+      15,
+      7,
+      1,
+      2,
+      2,
+      0,
+      133
+    ]
+  ],
+  "sketch_accuracy_change_vs_erm": 0.0,
+  "sketch_per_class_delta_vs_erm": {
+    "dog": 0.0,
+    "elephant": 0.0,
+    "giraffe": 0.0,
+    "guitar": 0.0,
+    "horse": 0.0,
+    "house": 0.0,
+    "person": 0.0
+  }
+}

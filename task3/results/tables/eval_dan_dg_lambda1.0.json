@@ -1,0 +1,230 @@
+{
+  "checkpoint": "task3/results/checkpoints/dan_dg_lambda1.0_best.pt",
+  "method": "dan_dg",
+  "run_tag": "dan_dg_lambda1.0",
+  "train_blob_meta": {
+    "epoch": 4,
+    "mean_source_val_macro_f1": 0.9265748329087424,
+    "method": "dan_dg",
+    "run_tag": "dan_dg_lambda1.0"
+  },
+  "source_val": {
+    "per_domain": {
+      "photo": {
+        "accuracy": 0.9610778443113772,
+        "macro_f1": 0.9533977932830952,
+        "n": 334
+      },
+      "art_painting": {
+        "accuracy": 0.8829268292682927,
+        "macro_f1": 0.8839621161610779,
+        "n": 410
+      },
+      "cartoon": {
+        "accuracy": 0.9339019189765458,
+        "macro_f1": 0.9423645892820541,
+        "n": 469
+      }
+    },
+    "mean_macro_f1": 0.9265748329087424,
+    "mean_accuracy": 0.9259688641854051,
+    "worst_macro_f1": 0.8839621161610779,
+    "worst_macro_f1_domain": "art_painting",
+    "worst_accuracy": 0.8829268292682927,
+    "worst_accuracy_domain": "art_painting"
+  },
+  "source_domain_separability": {
+    "held_out_accuracy": 0.7807308970099668,
+    "chance": 0.3333333333333333,
+    "n_per_domain": 334,
+    "test_size": 0.3,
+    "C": 1.0,
+    "seed": 6304,
+    "domains": [
+      "photo",
+      "art_painting",
+      "cartoon"
+    ]
+  },
+  "sharpness": {
+    "delta_sharp": 0.2579488009214401,
+    "loss_at_theta": 0.24102719128131866,
+    "loss_at_theta_plus_eps": 0.4989759922027588,
+    "rho": 0.05,
+    "grad_norm": 4.005613803863525,
+    "n": 96
+  },
+  "note": "Sketch labels used only in this final evaluation stage. Do not revise training settings based on these numbers.",
+  "sketch": {
+    "accuracy": 0.6314583863578519,
+    "macro_f1": 0.6348553244813001,
+    "n": 3929
+  },
+  "sketch_per_class": {
+    "dog": {
+      "accuracy": 0.3329015544041451,
+      "n": 772
+    },
+    "elephant": {
+      "accuracy": 0.9608108108108108,
+      "n": 740
+    },
+    "giraffe": {
+      "accuracy": 0.3187250996015936,
+      "n": 753
+    },
+    "guitar": {
+      "accuracy": 0.8782894736842105,
+      "n": 608
+    },
+    "horse": {
+      "accuracy": 0.6924019607843137,
+      "n": 816
+    },
+    "house": {
+      "accuracy": 0.65,
+      "n": 80
+    },
+    "person": {
+      "accuracy": 0.7625,
+      "n": 160
+    }
+  },
+  "sketch_confusions_top": [
+    {
+      "true": "dog",
+      "pred": "elephant",
+      "count": 297
+    },
+    {
+      "true": "giraffe",
+      "pred": "horse",
+      "count": 190
+    },
+    {
+      "true": "dog",
+      "pred": "horse",
+      "count": 173
+    },
+    {
+      "true": "giraffe",
+      "pred": "dog",
+      "count": 131
+    },
+    {
+      "true": "horse",
+      "pred": "elephant",
+      "count": 130
+    },
+    {
+      "true": "giraffe",
+      "pred": "elephant",
+      "count": 107
+    },
+    {
+      "true": "horse",
+      "pred": "dog",
+      "count": 96
+    },
+    {
+      "true": "giraffe",
+      "pred": "person",
+      "count": 62
+    },
+    {
+      "true": "dog",
+      "pred": "person",
+      "count": 43
+    },
+    {
+      "true": "guitar",
+      "pred": "elephant",
+      "count": 33
+    },
+    {
+      "true": "guitar",
+      "pred": "person",
+      "count": 32
+    },
+    {
+      "true": "giraffe",
+      "pred": "guitar",
+      "count": 23
+    }
+  ],
+  "sketch_confusion_matrix": [
+    [
+      257,
+      297,
+      1,
+      1,
+      173,
+      0,
+      43
+    ],
+    [
+      7,
+      711,
+      0,
+      1,
+      14,
+      0,
+      7
+    ],
+    [
+      131,
+      107,
+      240,
+      23,
+      190,
+      0,
+      62
+    ],
+    [
+      1,
+      33,
+      5,
+      534,
+      3,
+      0,
+      32
+    ],
+    [
+      96,
+      130,
+      0,
+      6,
+      565,
+      0,
+      19
+    ],
+    [
+      0,
+      10,
+      0,
+      7,
+      0,
+      52,
+      11
+    ],
+    [
+      12,
+      18,
+      3,
+      2,
+      3,
+      0,
+      122
+    ]
+  ],
+  "sketch_accuracy_change_vs_erm": -0.03385085263425802,
+  "sketch_per_class_delta_vs_erm": {
+    "dog": -0.2603626943005181,
+    "elephant": 0.1945945945945946,
+    "giraffe": -0.010624169986719778,
+    "guitar": -0.08059210526315796,
+    "horse": 0.006127450980392135,
+    "house": -0.16249999999999998,
+    "person": -0.06875000000000009
+  }
+}

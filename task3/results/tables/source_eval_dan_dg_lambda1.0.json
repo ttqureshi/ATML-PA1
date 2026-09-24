@@ -1,0 +1,58 @@
+{
+  "checkpoint": "task3/results/checkpoints/dan_dg_lambda1.0_best.pt",
+  "method": "dan_dg",
+  "run_tag": "dan_dg_lambda1.0",
+  "train_blob_meta": {
+    "epoch": 4,
+    "mean_source_val_macro_f1": 0.9265748329087424,
+    "method": "dan_dg",
+    "run_tag": "dan_dg_lambda1.0"
+  },
+  "source_val": {
+    "per_domain": {
+      "photo": {
+        "accuracy": 0.9610778443113772,
+        "macro_f1": 0.9533977932830952,
+        "n": 334
+      },
+      "art_painting": {
+        "accuracy": 0.8829268292682927,
+        "macro_f1": 0.8839621161610779,
+        "n": 410
+      },
+      "cartoon": {
+        "accuracy": 0.9339019189765458,
+        "macro_f1": 0.9423645892820541,
+        "n": 469
+      }
+    },
+    "mean_macro_f1": 0.9265748329087424,
+    "mean_accuracy": 0.9259688641854051,
+    "worst_macro_f1": 0.8839621161610779,
+    "worst_macro_f1_domain": "art_painting",
+    "worst_accuracy": 0.8829268292682927,
+    "worst_accuracy_domain": "art_painting"
+  },
+  "source_domain_separability": {
+    "held_out_accuracy": 0.7807308970099668,
+    "chance": 0.3333333333333333,
+    "n_per_domain": 334,
+    "test_size": 0.3,
+    "C": 1.0,
+    "seed": 6304,
+    "domains": [
+      "photo",
+      "art_painting",
+      "cartoon"
+    ]
+  },
+  "sharpness": {
+    "delta_sharp": 0.2579488009214401,
+    "loss_at_theta": 0.24102719128131866,
+    "loss_at_theta_plus_eps": 0.4989759922027588,
+    "rho": 0.05,
+    "grad_norm": 4.005613803863525,
+    "n": 96
+  },
+  "note": "No Sketch loaded in this script."
+}

@@ -1,0 +1,32 @@
+{
+  "note": "Controlled \u03bb_DG study. Main comparison keeps \u03bb_DG=1; do not pick winner from Sketch.",
+  "table": [
+    {
+      "lambda_dg": 0.1,
+      "mean_source_macro_f1": 0.942159180223049,
+      "worst_source_macro_f1": 0.9179241234096314,
+      "source_domain_separability": 0.8438538205980066,
+      "delta_sharp": 0.3698939383029938,
+      "sketch_accuracy": 0.6217867141766352,
+      "sketch_macro_f1": 0.6579470959429667
+    },
+    {
+      "lambda_dg": 1.0,
+      "mean_source_macro_f1": 0.9265748329087424,
+      "worst_source_macro_f1": 0.8839621161610779,
+      "source_domain_separability": 0.7807308970099668,
+      "delta_sharp": 0.2579488009214401,
+      "sketch_accuracy": 0.6314583863578519,
+      "sketch_macro_f1": 0.6348553244813001
+    },
+    {
+      "lambda_dg": 10.0,
+      "mean_source_macro_f1": 0.12154629997188483,
+      "worst_source_macro_f1": 0.1048380422728702,
+      "source_domain_separability": 0.7308970099667774,
+      "delta_sharp": 3.6836663484573364,
+      "sketch_accuracy": 0.24484601679816748,
+      "sketch_macro_f1": 0.10023830652340228
+    }
+  ]
+}
