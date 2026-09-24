@@ -1,0 +1,10 @@
+# PROSER — classifier + data placeholders (init from Vanilla).
+method: proser
+proser:
+  num_dummy: 5
+  max_epochs: 50
+  lr: 0.001
+  beta: 1.0
+  gamma: 0.1
+  mixup_alpha: 2.0
+  mixup_after: layer2

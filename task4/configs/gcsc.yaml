@@ -1,0 +1,2 @@
+# GCSC — same recipe as Vanilla + RandAugment(2, 9).
+method: gcsc

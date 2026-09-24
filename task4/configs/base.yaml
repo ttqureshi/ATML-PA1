@@ -1,0 +1,92 @@
+# Task 4 — Open-Set Recognition (OSR).
+#
+# ASSUMPTIONS / DESIGN CHOICES (assignment-faithful):
+# 1. Known = all 10 CIFAR-10 classes; unknowns = fixed CIFAR-100 test classes.
+# 2. Stratified 90/10 CIFAR-10 train split, seed 6304; ckpt = val Acc only.
+# 3. CIFAR ResNet-18: 3×3 stride-1 stem, no max-pool, native 32×32.
+# 4. Vanilla/GCSC: SGD lr=0.1, mom=0.9, wd=5e-4, cosine, bs=128, 100 epochs.
+# 5. GCSC = Vanilla + RandAugment(num_ops=2, magnitude=9) only.
+# 6. PROSER: init from Vanilla; 5 dummy heads; 50 epochs; lr=1e-3; β=1, γ=0.1;
+#    manifold mixup after layer2, λ ~ Beta(2,2).
+# 7. Mahalanobis: class means + shared diagonal Σ from unaugmented train feats;
+#    add 1e-6 to each diagonal entry.
+# 8. Threshold τ = 95th percentile of unknownness on CIFAR-10 val only.
+# 9. No CIFAR-100 image influences train / ckpt / score design / thresholds.
+# 10. Optional RPL is out of scope unless explicitly requested.
+
+seed: 6304
+
+data:
+  root: data/cifar
+  splits: task4/results/splits/cifar10_seed6304.json
+  train_frac: 0.9
+  num_workers: 2
+  # Standard CIFAR-10 normalization (explicit assumption).
+  mean: [0.4914, 0.4822, 0.4465]
+  std: [0.2470, 0.2435, 0.2616]
+
+model:
+  name: resnet18_cifar
+  num_classes: 10
+  feature_dim: 512
+
+training:
+  batch_size: 128
+  max_epochs: 100
+  lr: 0.1
+  momentum: 0.9
+  weight_decay: 0.0005
+  optimizer: sgd
+  scheduler: cosine
+  # crop+pad4+flip; GCSC adds RandAugment after crop/flip.
+  pad: 4
+
+methods:
+  vanilla:
+    name: vanilla
+    randaugment: false
+  gcsc:
+    name: gcsc
+    randaugment: true
+    randaugment_num_ops: 2
+    randaugment_magnitude: 9
+  proser:
+    name: proser
+    init_from: vanilla
+    num_dummy: 5
+    max_epochs: 50
+    lr: 0.001
+    beta: 1.0
+    gamma: 0.1
+    mixup_alpha: 2.0   # Beta(α, α) with α=2 → Beta(2,2)
+    mixup_after: layer2
+
+evaluation:
+  # Accept when u(x) ≤ τ; τ = q-th percentile of val unknownness.
+  threshold_percentile: 95.0
+  near_classes:
+    - bus
+    - pickup_truck
+    - motorcycle
+    - tractor
+    - wolf
+    - fox
+    - leopard
+    - camel
+  far_classes:
+    - bottle
+    - bowl
+    - chair
+    - clock
+    - keyboard
+    - mushroom
+    - sunflower
+    - wardrobe
+
+paths:
+  checkpoints_dir: task4/results/checkpoints
+  tables_dir: task4/results/tables
+  figures_dir: task4/results/figures
+  curves_dir: task4/results/curves
+  cache_dir: task4/results/cache
+  splits_dir: task4/results/splits
