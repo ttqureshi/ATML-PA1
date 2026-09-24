@@ -44,30 +44,32 @@ task3/
 
 ## How to run
 
-From the **repository root** (GPU recommended; wait until you ask to execute):
+### A) Same Drive account (if GPU quota remains)
+
+From the **repository root** on that Drive / Colab:
 
 ```bash
-# 0) Same PACS + splits as Task 2
 python -m shared.prepare_pacs_splits
-
-# 1) Confirm ERM checkpoint exists (do not retrain)
-python -m task3.scripts.run_task3 --stages check_erm
-
-# 2) Train main DG methods
-python -m task3.train --method-config task3/configs/dan_dg.yaml
-python -m task3.train --method-config task3/configs/sam.yaml
-
-# 3) Controlled λ_DG study
-python -m task3.scripts.run_task3 --stages study_lambda
-
-# 4) Source-side diagnostics (still no Sketch)
-python -m task3.evaluate_source
-
-# 5) Final Sketch evaluation (after all decisions fixed)
-python -m task3.evaluate_final
+python -m task3.scripts.run_task3 --stages check_erm,train_main,study_lambda,eval_source,eval
 ```
 
-Or staged: `python -m task3.scripts.run_task3 --stages train_main,eval_source,eval`
+### B) Other Google account that still has GPU (recommended when A is out of quota)
+
+Colab always mounts the **signed-in** account’s Drive. So:
+
+1. Push/pull code via **GitHub** (this repo).
+2. Open `task3/run_task3_colab.ipynb` on the **GPU account**.
+3. Notebook **clones** into `/content/ATML-PA1` (does not need account-A Drive).
+4. Place `task2/results/checkpoints/source_only_best.pt` once (upload / gdown / copy) — it is gitignored.
+5. After runs, download `task3_results_bundle.zip` back into account-A `task3/results/`.
+
+```bash
+# Or staged runner after clone + ERM ckpt in place:
+python -m task3.scripts.run_task3 --stages check_erm
+python -m task3.scripts.run_task3 --stages train_main
+python -m task3.scripts.run_task3 --stages study_lambda
+python -m task3.scripts.run_task3 --stages eval_source,eval
+```
 
 ## No Sketch leakage checklist
 
