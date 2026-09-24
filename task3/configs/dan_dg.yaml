@@ -1,0 +1,5 @@
+# DAN-DG — pairwise source-domain MMD (no Sketch).
+method: dan_dg
+dan_dg:
+  lambda_dg: 1.0
+  kernel_multipliers: [0.5, 1.0, 2.0]

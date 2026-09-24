@@ -1,0 +1,4 @@
+# SAM — Sharpness-Aware Minimization on ERM (ρ=0.05 main).
+method: sam
+sam:
+  rho: 0.05

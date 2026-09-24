@@ -48,3 +48,4 @@ python -m shared.prepare_pacs_splits
 5. **BN:** after `model.train()`, BN modules stay in `eval()` so running mean/var
    stay at ImageNet values; γ/β remain trainable.
 6. **Batches (Task 2):** 8 images per source domain + 24 target images.
+7. **Batches (Task 3):** 8 images per source domain only — **no Sketch / target** in the batch.

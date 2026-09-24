@@ -1,0 +1,80 @@
+# Task 3 — Domain Generalization (PACS, Sketch held out).
+#
+# ASSUMPTIONS / DESIGN CHOICES (allowed by the assignment):
+# 1. Controlled study = λ_DG ∈ {0.1, 1, 10} for DAN-DG (not SAM ρ).
+#    Why: Task 2 already studied λ_MMD with the same MMD kernels; a parallel
+#    λ_DG knob makes RQ4 (target-aware DAN vs target-free DAN-DG) comparable.
+#    Main comparison always uses λ_DG=1 and ρ=0.05; study runs are analysis-only.
+# 2. ERM baseline = Task 2 Source-only checkpoint (load; do not retrain).
+# 3. DAN-DG reuses task2.methods.dan.mmd_rbf (same multi-kernel RBF construction).
+# 4. SAM = standard non-adaptive SAM (Foret et al.); frozen-BN policy on BOTH passes.
+# 5. Source-domain separability: 3-way multinomial LR, C=1, 70/30, seed 6304.
+# 6. Sharpness proxy: fixed 32/source val batch (seed 6304), ρ=0.05 ascent, eval mode.
+# 7. Grad clip max_norm=20 inherited from Task 2 for rare explosion safety only.
+# 8. No Sketch images in training, source diagnostics, or checkpoint / HParam selection.
+
+seed: 6304
+
+data:
+  root: data/pacs
+  splits: shared/splits/pacs_sketch_seed6304.json
+  image_size: 224
+  resize_size: 256
+  train_frac: 0.8
+
+model:
+  backbone: resnet18
+  weights: IMAGENET1K_V1
+  num_classes: 7
+  feature_dim: 512
+
+training:
+  max_epochs: 30
+  lr: 0.0001
+  weight_decay: 0.0001
+  early_stop_patience: 5
+  # Domain-balanced batching (assignment): 8 images per SOURCE domain only.
+  # Task 3 never puts Sketch in the batch.
+  source_per_domain: 8
+  num_workers: 2
+  optimizer: adamw
+  grad_clip_norm: 20.0
+
+methods:
+  erm:
+    name: erm
+    # Load-only; path below.
+  dan_dg:
+    name: dan_dg
+    lambda_dg: 1.0
+    kernel_multipliers: [0.5, 1.0, 2.0]
+  sam:
+    name: sam
+    rho: 0.05
+
+# Main comparison (ERM is load-only from Task 2).
+main_methods: [erm, dan_dg, sam]
+
+# Controlled design study (DAN-DG λ). Sketch metrics are analysis-only.
+controlled_study:
+  method: dan_dg
+  param: lambda_dg
+  values: [0.1, 1.0, 10.0]
+
+evaluation:
+  source_domain_separability:
+    test_size: 0.3
+    C: 1.0
+    seed: 6304
+  sharpness:
+    per_domain: 32
+    rho: 0.05
+    seed: 6304
+
+paths:
+  checkpoints_dir: task3/results/checkpoints
+  tables_dir: task3/results/tables
+  figures_dir: task3/results/figures
+  curves_dir: task3/results/curves
+  # Task 2 Source-only ERM — do not retrain under a different config.
+  erm_checkpoint: task2/results/checkpoints/source_only_best.pt
