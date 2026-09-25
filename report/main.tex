@@ -36,8 +36,8 @@
 
 \begin{abstract}
 A classifier is usually trained as if $P_{\mathrm{Train}}(X,Y)=P_{\mathrm{Test}}(X,Y)$ and as if every test label already sits in the training set.
-Neither assumption survives contact with a new texture, a new domain, or a new class.
-This assignment treats four controlled studies as one question about the representation $z=g_\theta(x)$: what should $z$ preserve, what should it become invariant to, and when should the head refuse to name a class?
+Both break as soon as the next image has a new texture, comes from a new domain, or belongs to a new class.
+This assignment asks one thing about $z=g_\theta(x)$: what should $z$ keep, what should it ignore, and when should the head just say it does not know?
 On STL-10, frozen ResNet, ViT, and CLIP heads with almost the same clean accuracy still rely on different evidence.
 Color barely moves the prediction; breaking the layout of the image does, especially for CLIP.
 On PACS, unlabeled Sketch drawings are enough: a mild pull that makes source and Sketch features look more alike raises Sketch accuracy by $8.3$ points and leaves the source task intact.
@@ -46,7 +46,7 @@ SAM, which prefers a flatter source loss, is the strongest model on those three 
 On CIFAR, a new class that sits far from the training set (a bowl, a sunflower) is easier to reject than a near neighbor (a wolf next to dog).
 Making the known-class classifier a bit more accurate helps rejection a little.
 Mixing two known features and calling the mix ``unknown'' does not stand in for a real new class.
-The useful $z$ keeps what identifies the object, ignores domain identity and color shortcuts, and still needs a way to say unknown once the label itself is new.
+What helped here was a $z$ that still knew the object, did not lean on domain or color tricks, and could still refuse a label when the class itself was new.
 Code: \url{https://github.com/ttqureshi/ATML-PA1}.
 \end{abstract}
 
@@ -65,7 +65,7 @@ A good $z$ is supposed to be sufficient for $Y$, small, and stable under a small
   g(x+\delta x)\;\approx\; g(x).
   \label{eq:stable}
 \end{equation}
-That already fights the classification head.
+Those two jobs pull in opposite directions.
 The logits are $s_k=\psi_k^\top z$ and the head is $\hat y_k=\mathrm{softmax}(s_k)$.
 For a one-hot label with true class $j$,
 \begin{equation}
@@ -79,25 +79,25 @@ $\mathcal{L}_{CE}\to 0$ only if the true-class logit $s_j$ pulls away from the o
 If~\eqref{eq:stable} is too strong, those scores collapse.
 If $z$ keeps domain-dependent coordinates $z_{dd}$, the head can grow $s_j$ using a shortcut (cows on grass, camels in desert).
 
-Three mismatches are not the same problem.
-A known object can change color or style (a cue change).
-The input marginal can move while the label rule stays put,
+Those mismatches are not interchangeable.
+A cow can change color (a cue change).
+The photos can start looking different while the label rule stays the same,
 $P_T(x)\neq P_S(x)$ but $P_T(Y\mid x)=P_S(Y\mid x)$ (covariate shift).
-Or the label itself is new, $y\in\mathcal{Y}_U$ with $\mathcal{Y}_U\cap\mathcal{Y}_K=\emptyset$ (semantic shift).
-A softmax over $K$ known classes has no leftover mass for ``none of these''.
+Or the class itself is new, $y\in\mathcal{Y}_U$ with $\mathcal{Y}_U\cap\mathcal{Y}_K=\emptyset$ (semantic shift).
+A $K$-way softmax has nowhere to put ``none of these''.
 
-This assignment asks one question about~\eqref{eq:model}.
-What should $z$ preserve, what should it become invariant to, and when should $h_\psi$ reject $x$ rather than force a class in $\mathcal{Y}_K$?
-Section~\ref{sec:cues} edits one cue at a time on STL-10.
-Section~\ref{sec:uda} gives unlabeled Sketch from PACS and asks whether shrinking $\mathrm{Divergence}(P_S(x),P_T(x))$ lowers $L_T$.
-Section~\ref{sec:dg} removes Sketch and compares ERM, source-only MMD, and SAM~\citep{foret2021sharpness}.
-Section~\ref{sec:osr} asks when unknownness $u(x)$ should beat $\hat y=\arg\max_k z_k(x)$.
+The rest of the report is one question about~\eqref{eq:model}:
+what should $z$ keep, what should it ignore, and when should $h_\psi$ refuse $x$ instead of naming something in $\mathcal{Y}_K$?
+Section~\ref{sec:cues} changes one cue at a time on STL-10.
+Section~\ref{sec:uda} gives unlabeled Sketch from PACS and checks whether shrinking $\mathrm{Divergence}(P_S(x),P_T(x))$ actually lowers $L_T$.
+Section~\ref{sec:dg} hides Sketch and compares ERM, source-only MMD, and SAM~\citep{foret2021sharpness}.
+Section~\ref{sec:osr} asks when $u(x)$ should beat $\hat y=\arg\max_k z_k(x)$.
 
-Four claims are tested, not assumed.
-(1)~Two heads can score the same on clean photos and still look at different cues.
-(2)~Making source and target features look alike does not automatically help the target.
-(3)~A model that is strong and flat on the sources can still fail on an unseen domain.
-(4)~A better known-class classifier is not, by itself, a detector of new classes.
+A few things were not obvious beforehand.
+Two heads can score the same on clean photos and still look at different cues.
+Making source and target features look alike does not automatically help the target.
+A model that is strong and flat on the sources can still fail on an unseen domain.
+And a better known-class classifier is not automatically a detector of new classes.
 
 \section{Notation and protocol}
 \label{sec:setup}
@@ -115,7 +115,7 @@ ERM on a finite sample is
   \label{eq:erm}
 \end{equation}
 
-\paragraph{Why anyone aligns $P_S$ and $P_T$.}
+\paragraph{Why source and target get aligned.}
 Target loss is bounded by
 \begin{equation}
   L_T(f_\theta)
@@ -132,9 +132,9 @@ with
   b=\mathbb{E}_{P_T}\big[|P_S(Y\mid x)-P_T(Y\mid x)|\big].
   \label{eq:ab}
 \end{equation}
-In words: target error is at most source CE, plus how different the inputs look, plus leftover label mismatch.
+So target error is at most source CE plus how different the inputs look plus leftover label mismatch.
 $a$ and $b$ are that leftover, averaged on the source or the target.
-A measure-based alignment attack is
+A measure-based method adds an extra term,
 \begin{equation}
   L_{\mathrm{Total}}
   =L_{CE}(D_S)
@@ -148,8 +148,8 @@ MMD itself is an IPM,
   \label{eq:mmd}
 \end{equation}
 The runs use a multi-kernel RBF estimate of~\eqref{eq:mmd} on the $512$-d feature~\citep{long2015learning}.
-The leftover $\min(a,b)$ is conditional mismatch.
-A marginal MMD, or one discriminator on $z$ alone, is not required to make $P_S(Y\mid z)=P_T(Y\mid z)$.
+$\min(a,b)$ is the leftover label mismatch.
+Matching the two clouds of $z$, or fooling one discriminator on $z$, does not force $P_S(Y\mid z)=P_T(Y\mid z)$.
 
 Adversarial DA replaces the explicit $d$ by a discriminator $D_{\theta_d}(z)$ that should output $1$ on $D_S$ and $0$ on $D_T$.
 The feature extractor is trained on
@@ -170,7 +170,7 @@ A gradient-reversal layer implements the minus sign: forward it is the identity,
 DANN here uses~\eqref{eq:dann}--\eqref{eq:grl} with $\lambda$ scheduled as $\alpha(p)=2/(1+e^{-10p})-1$~\citep{ganin2016domain}.
 CDAN keeps the same game but feeds $\mathrm{vec}(f\otimes p)$ instead of $z$, so the discriminator sees a soft class guess.
 
-\paragraph{No $D_T$ in the room.}
+\paragraph{When the target is hidden.}
 Without target samples the bound~\eqref{eq:da-bound} becomes
 \begin{equation}
   L_T(f_\theta)
@@ -182,9 +182,9 @@ Without target samples the bound~\eqref{eq:da-bound} becomes
   \label{eq:dg-bound}
 \end{equation}
 where $\Lambda$ is the convex hull of $\{P_i(X)\}_{i=1}^M$, $\gamma$ is leftover distance from $P_T$ to that hull, and $\rho$ is how far the sources sit from each other.
-In words: target error is at most the source mixture error, plus how far the target sits from the source hull, plus how spread the sources are.
-The available moves are: lower every $L_i$, shrink source--source $\rho$ (pairwise $\mathrm{MMD}(D_i,D_j)$), and hope $P_T\in\Lambda$.
-SAM is the other lever~\citep{foret2021sharpness}:
+Target error is then at most the source mixture error, plus how far the target sits from the source hull, plus how spread the sources are.
+That leaves three things to try: lower every $L_i$, pull the sources closer with pairwise $\mathrm{MMD}(D_i,D_j)$, and hope $P_T\in\Lambda$.
+SAM is a different bet~\citep{foret2021sharpness}:
 \begin{equation}
   \theta_{\mathrm{SAM}}
   =\arg\min_\theta\max_{\|\epsilon\|\le\rho}L(\theta+\epsilon),
@@ -209,8 +209,8 @@ The optimal detector, if $P_U$ were known, is the likelihood ratio
   u^*(x)=\log\frac{P_U(x)}{P_K(x)}.
   \label{eq:lrt}
 \end{equation}
-$P_U$ is never observed, so every score below is a proxy.
-A point is accepted if $u(x)\le\tau$ and rejected otherwise, with $\tau$ set on known validation only.
+$P_U$ is never seen, so every score used later is only a stand-in.
+Accept if $u(x)\le\tau$, reject otherwise, and set $\tau$ on known validation only.
 
 \paragraph{What was actually run.}
 Seed $6304$.
@@ -235,16 +235,16 @@ PROSER never sees a real unknown~\citep{zhou2021learning}.
 
 Clean accuracy on the $500$-image STL-10 subset is already high and almost tied: $97.8$ (ResNet head), $97.6$ (ViT head), $98.2$ (CLIP head), $96.8$ (CLIP zero-shot).
 Appendix Table~\ref{tab:t1_clean} has the full baseline, including the CLIP head's strangely low mean max confidence ($0.335$), which is a softmax on L2-normalized $512$-d features rather than a weak classifier.
-Later gaps are about \emph{which} evidence $z$ keeps, not about a broken head.
+The gaps later are about what $z$ actually looks at, not about a broken head.
 
 \paragraph{Color is optional on this set.}
 Grayscale removes chroma and leaves edges.
 Hue rotation keeps those edges and swaps the palette.
-Table~\ref{tab:t1_interventions} says both edits are cheap.
+Table~\ref{tab:t1_interventions} shows both edits are cheap.
 Accuracy drops $1.6$ to $2.6$ points in grayscale and $3.4$ to $4.6$ points after a $90^\circ$ hue shift.
 Prediction consistency with the clean image stays above $93\%$.
-If these models have a color bias, it is a weak one on STL-10.
-That is useful later: PACS Sketch is not mainly a color problem.
+If these models care about color, they do not care much on STL-10.
+That matters later, because PACS Sketch is not mainly a color problem.
 
 \begin{table}[t]
   \centering
@@ -268,9 +268,9 @@ Shape bias and coverage are
 Table~\ref{tab:t1_cue} reports both.
 CLIP is the most shape-leaning ($88.4\%$ / $81.2\%$), then ViT ($76.8\%$), then ResNet ($61.5\%$).
 Coverage is only $72$--$78\%$.
-About a quarter of the predictions are some third class, so $SB$ is a ratio over a subset, not a law about the backbone.
-Architecture and pretraining are also confounded (supervised ImageNet versus image--text CLIP, three different capacities).
-The honest sentence is narrower: when shape and texture fight, CLIP's $z$ more often stays with the content class, and ResNet more often follows the style.
+About a quarter of the predictions are some third class, so $SB$ is a ratio on a subset, not a fact about the whole backbone.
+The models also differ in pretraining and size (supervised ImageNet versus image--text CLIP), so the ranking is not a clean architecture test.
+The safer reading is smaller: when shape and texture fight, CLIP more often stays with the content class, and ResNet more often follows the style.
 
 \begin{figure}[t]
   \centering
@@ -303,16 +303,16 @@ The local-versus-global contrast is
   \label{eq:conv-attn}
 \end{equation}
 a fixed neighbourhood $\mathcal{L}(i)$ against an input-dependent sum over the whole set $G$.
-Figure~\ref{fig:t1_translation} is almost flat through $\delta=32$ for every head (full numbers in Appendix Table~\ref{tab:t1_translation}), so~\eqref{eq:stable} holds for this $T_\delta$ at the prediction level.
-There is no CNN-versus-ViT story in those curves.
+Figure~\ref{fig:t1_translation} stays almost flat through $\delta=32$ for every head (full numbers in Appendix Table~\ref{tab:t1_translation}), so this $T_\delta$ barely moves the prediction.
+The CNN and the ViT look the same on those curves.
 Patch shuffle is a permutation $T_\pi$ of the $4\times4$ tiles.
 Ordinary self-attention is permutation-equivariant, not permutation-invariant, and a ViT with $E_{\mathrm{pos}}$ is not $T_\pi$-invariant.
-That is the test of whether $z$ needs the global arrangement in~\eqref{eq:conv-attn}.
+That is the test of whether $z$ needs the layout in~\eqref{eq:conv-attn}.
 Accuracy falls $7.4$ (ViT) and $8.2$ (ResNet) points, and $16.8$ / $15.8$ points for the two CLIP classifiers (Table~\ref{tab:t1_interventions}).
 The t-SNE of clean versus shuffled features (Figure~\ref{fig:t1_tsne}) makes the same point in representation space: class clouds smear, and CLIP's cloud smears more.
 Mean cosine stability of $z$ under the $4\times4$ shuffle is $0.74$ (CLIP), $0.72$ (ResNet), $0.65$ (ViT).
-CLIP's visual features are more committed to ``which patch sits where''.
-That is a reasonable inductive bias for a contrastive image--text model, and a liability once the patches are permuted.
+CLIP's visual features care more about which patch sits where.
+That helps a contrastive image--text model on ordinary photos, and it hurts once the patches are scrambled.
 
 \begin{figure}[t]
   \centering
@@ -336,15 +336,15 @@ That is a reasonable inductive bias for a contrastive image--text model, and a l
 \end{figure}
 
 \paragraph{The head and the embedding do not always vote together.}
-Equation~\eqref{eq:stable} is a statement about $z$, not about $\hat y$.
+Equation~\eqref{eq:stable} is about $z$, not about $\hat y$.
 Table~\ref{tab:t1_stability} measures it as mean $\cos\big(z(x),z(T(x))\big)$.
-ViT grayscale is the clean mismatch: accuracy drops only $2.0$ points, yet cosine stability is $0.739$.
-The linear head can keep the label while $z$ walks.
+ViT under grayscale is the clearest split: accuracy drops only $2.0$ points, but cosine stability is $0.739$.
+The linear head can keep the label while $z$ moves.
 Cue-conflict stability goes the other way.
 ResNet and ViT features of a stylized image sit far from the content image ($0.35$ and $0.31$), while CLIP stays closer ($0.71$), which matches CLIP's higher shape bias.
 Zero-shot CLIP and the CLIP linear head share the visual encoder, so their intervention ranking agrees.
 They disagree on individual cue-conflict images (the linear head is more shape-loyal; zero-shot more often says ``other'').
-A prompt is not the same decision surface as a trained $\psi$.
+A prompt is not the same decision as a trained $\psi$.
 
 \begin{table}[t]
   \centering
@@ -360,8 +360,8 @@ A prompt is not the same decision surface as a trained $\psi$.
 \label{sec:uda}
 
 PACS asks for the same seven classes under four styles (Appendix Figure~\ref{fig:t2_pacs}).
-Source-only ERM already has the covariate-shift gap in numerical form (Table~\ref{tab:t2_main}): mean source-val accuracy $93.7$, Sketch $66.5$.
-Giraffe is the class the source model does not know how to draw ($32.9$); guitar is already fine ($95.9$).
+Source-only ERM already shows the gap (Table~\ref{tab:t2_main}): mean source-val accuracy $93.7$, Sketch $66.5$.
+Giraffe is the class the source model cannot draw ($32.9$); guitar is already fine ($95.9$).
 A domain probe on frozen $512$-d features scores $99.6\%$ (chance $50\%$).
 $z$ still knows which images are Sketch.
 
@@ -379,8 +379,8 @@ Figure~\ref{fig:t2_tsne_domain} (center) is that compromise in feature space: so
 The class-colored view (Appendix Figure~\ref{fig:t2_tsne_so}, right) still has clusters.
 Giraffe collects most of the gain ($+34.9$ points, Table~\ref{tab:t23_perclass}).
 House and person go up as well; dog slips a little.
-This is the case where shrinking the middle term of~\eqref{eq:da-bound} helps $L_T$ while $L_S$ in~\eqref{eq:ce} stays small.
-The probe is still $95.2\%$, so $\min(a,b)$ was not driven to zero; it just did not get worse enough to cancel the gain.
+Here the middle term of~\eqref{eq:da-bound} went down, $L_T$ got better, and $L_S$ in~\eqref{eq:ce} stayed small.
+The probe is still $95.2\%$, so $\min(a,b)$ was not gone. It just did not get worse enough to eat the gain.
 
 \begin{table}[t]
   \centering
@@ -400,20 +400,20 @@ Domain separability stays $99.5$, so the middle term of~\eqref{eq:da-bound} did 
 Figure~\ref{fig:t2_tsne_domain} (right) is why: Sketch is a tight island, sources sit in rings around it.
 The reversed gradient moved $z$ in a way that kept $D_{\theta_d}$ busy and wrecked $s_j$ on Sketch.
 The dominant confusions are dog, horse, elephant, giraffe, and even guitar into \emph{person} (Table~\ref{tab:t23_confusions}).
-A min-max game can over-align, and a single discriminator on marginals can wrongly align conditionals: $\min(a,b)$ grew.
+The min-max game can overdo it, and a discriminator that only sees $z$ can match the wrong conditionals: $\min(a,b)$ grew.
 CDAN keeps~\eqref{eq:grl} but replaces $z$ by $g(x)=\mathrm{vec}(f\otimes p)$.
 It is better than DANN ($53.1$) and worse than doing nothing.
 Soft $p$ on a moving Sketch feature is a noisy class name.
 Animals collapse into horse instead of person (Table~\ref{tab:t23_confusions}).
-Conditioning on the head does not create class-conditional alignment if the head is already confused.
+Conditioning on the head does not fix class-conditional alignment if the head is already confused.
 
 The class-colored DANN plot (Appendix Figure~\ref{fig:t2_tsne_dann}) is a smear.
 CDAN's matching embeddings are Appendix Figure~\ref{fig:t2_tsne_dann} (right).
 
-Training curves (Figure~\ref{fig:t2_curves}) add a time axis.
-Source-only CE falls and source F1 rises, then early-stops.
+Figure~\ref{fig:t2_curves} is the same story over epochs.
+Source-only CE falls and source F1 rises, then training stops early.
 DAN's MMD term drops while source F1 stays high.
-DANN and CDAN keep a large domain loss and a high source F1: the head is still solving Photo / Art / Cartoon while $z$ is being pulled by a reversed gradient that Sketch never supervises.
+DANN and CDAN keep a large domain loss and a high source F1: the head is still solving Photo, Art, and Cartoon, while $z$ is being pulled by a reversed gradient that Sketch never supervises.
 
 \begin{figure}[t]
   \centering
@@ -433,17 +433,17 @@ DANN and CDAN keep a large domain loss and a high source F1: the head is still s
   \includegraphics[width=0.88\linewidth]{t2_curves.pdf}
   \caption{Task~2 training.
   Alignment loss is MMD$^2$ for DAN and domain CE for DANN / CDAN.
-  High source F1 is cheap; Sketch is not in this plot.}
+  Source F1 can look fine while Sketch is never in this plot.}
   \label{fig:t2_curves}
 \end{figure}
 
 \paragraph{$\lambda_{\mathrm{MMD}}$ is not ``more invariance is better''.}
-Table~\ref{tab:t2_lambda} is the controlled study, chosen before looking at Sketch.
-$\lambda=0.1$ is source-only in disguise (Sketch $66.2$, separability $99.5$).
-$\lambda=1$ is the useful point.
+Table~\ref{tab:t2_lambda} varies $\lambda$ without looking at Sketch labels.
+$\lambda=0.1$ is basically source-only (Sketch $66.2$, separability $99.5$).
+$\lambda=1$ is the setting that helped.
 $\lambda=10$ lowers separability further ($93.0$) and also drops source F1 to $87.5$; Sketch falls back to $67.6$.
 Centroid $\ell_2$ between mean source and mean Sketch features is smallest at $\lambda=1$ ($13.3$), not at $\lambda=10$ ($40.4$).
-Strong MMD can move means in a way that is not useful.
+A stronger MMD can move the means without helping the classes.
 If Sketch labels had been hidden, $\lambda=1$ is still the setting I would keep: best source F1 among the three, and the first visible drop in the domain probe.
 Separability alone would have picked $\lambda=10$ and thrown away the classifier.
 Appendix Figure~\ref{fig:t2_lambda_curves} shows the same $\lambda$ runs over epochs; Appendix Figure~\ref{fig:t2_tsne_lam10} is the $\lambda=10$ embedding.
@@ -460,10 +460,10 @@ Appendix Figure~\ref{fig:t2_lambda_curves} shows the same $\lambda$ runs over ep
 \section{Generalizing with no target access}
 \label{sec:dg}
 
-Equation~\eqref{eq:dg-bound} leaves three moves: lower every source risk, shrink the source--source radius $\rho$, and hope $P_T$ still sits in $\Lambda$.
+Equation~\eqref{eq:dg-bound} leaves three options: lower every source risk, shrink the source--source radius $\rho$, and hope $P_T$ still sits in $\Lambda$.
 Sketch is unseen in training, selection, and the source diagnostics.
 The ERM row in Table~\ref{tab:t3_main} is the same $66.5$ Sketch number as Table~\ref{tab:t2_main}.
-That is the hinge for the comparison.
+That shared checkpoint is the fair starting point.
 
 \begin{table}[t]
   \centering
@@ -490,10 +490,10 @@ Three-way source separability falls from $89.7$ to $78.1$.
 Mean source F1 slips from $93.3$ to $92.7$.
 Sketch goes the wrong way: $63.1$ ($-3.4$).
 Elephant jumps ($+19.5$); dog collapses ($-26.0$); house drops $16$ points (Table~\ref{tab:t23_perclass}).
-The invariance is real and it is not the invariance Sketch needed.
-At $\lambda_{\mathrm{DG}}=10$ the method says this out loud (Table~\ref{tab:t3_lambda}): source F1 $12.2$, Sketch $24.5$, and the confusion matrix is almost ``predict dog''.
-That is~\eqref{eq:dan-dg} eating the true-class logits in~\eqref{eq:ce}, plus $\gamma(P_T,\Lambda)$ in~\eqref{eq:dg-bound} left untouched because Sketch was never in the MMD.
-Appendix Figure~\ref{fig:t3_lambda_curves} is the training view: the MMD term dies, CE does not.
+The sources really did get closer. That is just not the closeness Sketch needed.
+At $\lambda_{\mathrm{DG}}=10$ this is obvious (Table~\ref{tab:t3_lambda}): source F1 $12.2$, Sketch $24.5$, and the model almost always says dog.
+Equation~\eqref{eq:dan-dg} ate the true-class logits in~\eqref{eq:ce}, and $\gamma(P_T,\Lambda)$ in~\eqref{eq:dg-bound} never moved because Sketch was never in the MMD.
+Appendix Figure~\ref{fig:t3_lambda_curves} shows the same thing in training: the MMD term dies, CE does not.
 
 \begin{table}[t]
   \centering
@@ -504,18 +504,18 @@ Appendix Figure~\ref{fig:t3_lambda_curves} is the training view: the MMD term di
   \input{tables/t3_lambda}
 \end{table}
 
-\paragraph{A flatter source bowl is not a Sketch bowl.}
+\paragraph{A flatter source loss is not a Sketch model.}
 SAM is~\eqref{eq:sam} with $\rho=0.05$.
-It does what it is paid to do.
+On the sources it does its job.
 $\Delta_{\mathrm{sharp}}=L(\theta+\bar\epsilon)-L(\theta)$ falls from $0.317$ (ERM) to $0.142$.
 Mean source F1 is the best of the three ($94.9$), and the worst source domain (Art) improves.
 Sketch is $44.6$ ($-22.0$).
 Horse and guitar, two classes ERM already handled, fall by about $55$ points each (Table~\ref{tab:t23_perclass}).
-SAM for DG is hard because domains need not share a flat region.
-Here the ranking is inverted: the flattest source solution is the worst unseen-domain solution.
-Mean and worst source-val F1 would have selected SAM and rejected the ERM checkpoint that is $22$ points better on Sketch.
-Figure~\ref{fig:t3_curves} is the training picture.
-SAM's perturbed CE keeps falling; DAN-DG's MMD falls while source F1 stays ordinary.
+A flat region on Photo, Art, and Cartoon need not be a flat region on Sketch.
+Here the ranking flips: the flattest source model is the worst on the unseen domain.
+Mean and worst source-val F1 would have picked SAM and thrown away the ERM checkpoint that is $22$ points better on Sketch.
+Figure~\ref{fig:t3_curves} is the training view.
+SAM's perturbed CE keeps falling; DAN-DG's MMD falls while source F1 looks ordinary.
 
 \begin{figure}[t]
   \centering
@@ -527,17 +527,17 @@ SAM's perturbed CE keeps falling; DAN-DG's MMD falls while source F1 stays ordin
   \label{fig:t3_curves}
 \end{figure}
 
-\paragraph{Per-class, the two alignment graphs do not edit the same animals.}
+\paragraph{The two alignment setups do not help the same classes.}
 Table~\ref{tab:t23_perclass} and Appendix Figure~\ref{fig:perclass_delta} put Task~2 and Task~3 on one grid.
-Target-aware DAN repairs giraffe.
-Target-free DAN-DG repairs elephant and damages dog.
-SAM repairs almost nothing that matters and deletes horse and guitar.
-Table~\ref{tab:t23_confusions} is the failure mode in words: ERM mixes giraffes and horses with dogs; DANN dumps animals into person; CDAN dumps them into horse; SAM dumps horses and giraffes into dog.
-The shared ERM is the only fair hinge for ``what unlabeled Sketch contributed''.
-Against that hinge, DAN is $+8.3$ and DAN-DG is $-3.4$.
-That is not a causal claim that ``target access'' is the only difference.
-The alignment graph, the bandwidth sample (24 Sketch images versus three pairs of 8), and the selected epoch (14 versus 4) all change.
-It is still the comparison the protocol was built for, and it goes in one direction.
+DAN, which sees unlabeled Sketch, mostly helps giraffe.
+DAN-DG, which does not, helps elephant and hurts dog.
+SAM barely helps anything that matters and drops horse and guitar.
+Table~\ref{tab:t23_confusions} is the same story as a list of mistakes: ERM mixes giraffes and horses with dogs; DANN dumps animals into person; CDAN dumps them into horse; SAM dumps horses and giraffes into dog.
+The shared ERM is the only fair start for asking what unlabeled Sketch added.
+From that start, DAN is $+8.3$ and DAN-DG is $-3.4$.
+That does not prove target access was the only difference.
+The pairing, the bandwidth sample (24 Sketch images versus three pairs of 8), and the selected epoch (14 versus 4) all change.
+It is still the comparison this protocol can make, and it goes one way.
 
 \begin{table}[t]
   \centering
@@ -562,9 +562,9 @@ It is still the comparison the protocol was built for, and it goes in one direct
 
 UDA and DG keep $\mathcal{Y}_K$ fixed and move $P(X)$.
 OSR keeps $P_K$ and asks for a second output: reject if $x$ looks like $\mathcal{Y}_U$.
-Equation~\eqref{eq:ce} never sees an unknown, and far from the training points the decision regions are unbounded cones.
-That is how $R_{\mathcal{O}}$ in~\eqref{eq:open-risk} grows: the accepted set walks into $\mathcal{O}$.
-False confidence is the symptom, not a separate disease.
+Equation~\eqref{eq:ce} never sees an unknown, and far from the training points the decision regions keep going as unbounded cones.
+That is how $R_{\mathcal{O}}$ in~\eqref{eq:open-risk} grows: the accepted set walks into empty space.
+The model looks sure. That does not mean it is right.
 
 \paragraph{Four scores are four different proxies for~\eqref{eq:lrt}.}
 On the frozen Vanilla model (Table~\ref{tab:t4_scores})
@@ -588,9 +588,9 @@ MLS and Energy are almost the same ranking, which they should be when one logit 
 Mahalanobis is the best far detector ($92.1$ AUROC) and not special on near ($80.3$): an unknown fox can land next to dog.
 MSP's histogram (Figure~\ref{fig:t4_scores}, left) is a spike at $0$.
 Most knowns, and too many unknowns, look like $p\approx[1,0,\ldots]$.
-High relative confidence is not high evidence of being known.
-The val-calibrated point $\tau$ (dashed) is the only operating point that known validation may choose: about $95\%$ of known val examples are kept, and most near unknowns are still accepted (reject $27$--$30\%$).
-AUROC and FPR@$95$TPR answer different questions, and both belong in the table.
+Looking sure among the $K$ known classes is not the same as looking known.
+The dashed $\tau$ is the only threshold known validation is allowed to pick: about $95\%$ of known val examples are kept, and most near unknowns are still accepted (reject $27$--$30\%$).
+AUROC and FPR@$95$TPR ask different things. Both are in the table.
 
 \begin{table}[t]
   \centering
@@ -618,8 +618,8 @@ Table~\ref{tab:t4_models} holds the training axis fixed (MLS) except for the ext
 GCSC changes only the augmentation.
 CSA goes $94.7\to 95.1$.
 Near AUROC $79.8\to 81.5$, far $88.7\to 90.5$, far reject at $\tau$ $49.4\to 60.0$.
-In this run the claim that a good closed-set classifier plus MLS is enough is directionally true, and it is more true for far than for near.
-The correlation is still empirical: CSA rewards any direction that raises known accuracy, including a texture cue that later fails on a leopard.
+In this run a slightly better known-class model plus MLS did help a bit, more on far unknowns than on near ones.
+That is still just a correlation. CSA rewards anything that raises known accuracy, including a texture cue that later fails on a leopard.
 PROSER manufactures a proxy unknown~\citep{zhou2021learning}.
 Hidden states of two known classes are mixed,
 \begin{equation}
@@ -638,11 +638,11 @@ The first term keeps the true class on top.
 The second asks the dummy class to win once $y_j$ is masked.
 CSA drops to $94.4$.
 MLS-AUROC is close to Vanilla and worse than GCSC at the operating point.
-The placeholder score, the thing PROSER is supposed to add, is the weakest row in the table (far AUROC $82.8$, far reject $35\%$).
-Points on the segment between cat and truck are not sunflowers.
-Table~\ref{tab:t4_failures} is the human check at Vanilla MLS ($\tau=-5.72$).
-bus$\to$truck and wolf$\to$dog are the near-unknown story.
-sunflower$\to$bird and bowl$\to$truck are the generic-feature story: $h$ that separates known classes from each other is still true of things outside $\mathcal{Y}_K$.
+The placeholder score, the extra thing PROSER is meant to add, is the weakest row in the table (far AUROC $82.8$, far reject $35\%$).
+A point halfway between cat and truck is not a sunflower.
+Table~\ref{tab:t4_failures} is a hand check of Vanilla MLS at $\tau=-5.72$.
+bus$\to$truck and wolf$\to$dog are the near-unknown cases.
+sunflower$\to$bird and bowl$\to$truck are the farther ones: a feature that splits known classes from each other can still be true of things outside $\mathcal{Y}_K$.
 
 \begin{table}[t]
   \centering
@@ -668,47 +668,47 @@ sunflower$\to$bird and bowl$\to$truck are the generic-feature story: $h$ that se
 \label{sec:discussion}
 
 \paragraph{Cues and style shift.}
-Task~1 says texture still moves ResNet more than CLIP, and that global layout matters most to CLIP.
-PACS Sketch is a style-stripped line drawing of the same classes.
-The failures that show up are animal-class collapses (giraffe under ERM, person under DANN, dog under SAM), not a grayscale-style color bug.
-That is a qualitative rhyme, not a causal chain.
-The datasets, backbones, and training recipes are different on purpose.
+Task~1 says texture still moves ResNet more than CLIP, and that layout matters most to CLIP.
+PACS Sketch is a line drawing of the same classes with the style stripped off.
+The failures that actually show up are animal mix-ups (giraffe under ERM, person under DANN, dog under SAM), not a missing-color bug.
+That is only a loose match. The datasets, backbones, and training recipes are different on purpose.
 
 \paragraph{Invariance is not discriminability.}
-Appendix Figure~\ref{fig:sep_vs_sketch} is the one plot that should kill the habit of reading a domain probe as a success metric.
+Appendix Figure~\ref{fig:sep_vs_sketch} is why a domain probe is a bad success metric.
 In Task~2, DAN lowers source-versus-Sketch separability a little and Sketch rises; DANN barely lowers it and Sketch dies; $\lambda_{\mathrm{MMD}}=10$ lowers it more and Sketch comes back down.
 In Task~3, DAN-DG lowers the $3$-way source probe and Sketch falls; $\lambda_{\mathrm{DG}}=10$ lowers it again and the classifier disappears.
-The leftover $\min(a,b)$ is the term those probes do not see.
-Class-conditional geometry is what DAN kept (Appendix Figure~\ref{fig:t2_tsne_so}) and DANN deleted (Appendix Figure~\ref{fig:t2_tsne_dann}).
+Those probes never see $\min(a,b)$.
+DAN kept the class clouds (Appendix Figure~\ref{fig:t2_tsne_so}). DANN wiped them (Appendix Figure~\ref{fig:t2_tsne_dann}).
 
-\paragraph{Unlabeled target data is not a minor implementation detail.}
-The shared ERM checkpoint is the only clean hinge.
+\paragraph{Unlabeled target data is not a small implementation choice.}
+The shared ERM checkpoint is the only clean start.
 Giving DAN those Sketch images produced the only alignment run that helped.
-Aligning the sources to each other, with the same kernels, did not substitute.
-The limits of that sentence are real: one seed, one $\lambda=1$, different pairing and bandwidth, and I did not rerun DANN as a DG method.
-The protocol still answers the question it was written to ask.
-If $D_T$ is hidden, source ERM is the honest baseline in this study, and SAM is a warning against trusting source validation.
+Aligning the sources to each other, with the same kernels, did not replace that.
+The catch is real: one seed, one $\lambda=1$, different pairing and bandwidth, and I did not rerun DANN as a DG method.
+If $D_T$ is hidden, source ERM is the honest baseline here, and SAM is a warning against trusting source validation.
 
 \paragraph{Recognition is not rejection.}
 Tasks~2 and~3 always emit a PACS label.
 Task~4 is the only place the model is allowed to say unknown.
 GCSC shows that a better $z$ for $\mathcal{Y}_K$ can also rank $P_U$ a bit better, mostly far away.
-PROSER shows that filling the open space with interpolations of known $h$ is a different geometry from $\mathcal{Y}_U$.
-Near versus far is the same distinction as near OOD versus far OOD, now on labels instead of styles.
+PROSER shows that mixing known features is not the same geometry as a real unknown class.
+Near versus far is the same split as near OOD versus far OOD, now on labels instead of styles.
 Rejecting a wardrobe does not mean a wolf will not come out as dog.
 
-\paragraph{Preserve, ignore, reject.}
-A useful representation keeps the coordinates that are causal for $Y$ and stable across appearance: object identity, roughly shape and the arrangement of parts.
-It should become invariant to domain identity, to color shortcuts, and to the global texture of a style that is not the class.
-It should not become invariant to the arrangement of those parts, and it should not become invariant by erasing class-conditional clouds.
+\paragraph{What to keep, ignore, and refuse.}
+Keep the parts that still name the object after the picture changes: roughly shape and how the parts sit together.
+Ignore domain identity, color shortcuts, and a style that is not the class.
+Do not ignore the layout of those parts, and do not ``ignore'' domain by erasing the class clouds.
 Once $y$ is outside $\mathcal{Y}_K$, invariance is the wrong tool.
-The head should abstain when $u(x)>\tau$, with $\tau$ set on known validation only, and it should expect near unknowns to leak.
+The head should refuse when $u(x)>\tau$, with $\tau$ set on known validation only, and it should expect near unknowns to leak through.
 
 \section{Conclusion}
 \label{sec:conclusion}
 
-A good representation is one that still names the right known class after the picture changes style, that does not cheat with domain identity or color, and that can say ``unknown'' when the class itself is new.
-It is not the most compressed feature, and it is not the feature that has forgotten every domain difference.
+A good $z$ still names the right known class after the picture changes style.
+It does not cheat with domain or color.
+And it can say unknown when the class itself is new.
+It does not have to be the smallest feature, and it does not have to forget every domain difference.
 
 Unlabeled Sketch images made a mild alignment term useful.
 The same term, pointed at the wrong domains or turned up too far, wiped out the classes.
@@ -716,9 +716,8 @@ SAM was the best model on Photo, Art, and Cartoon, and the worst on Sketch.
 A high softmax score does not mean the image is a known class.
 
 These runs use one seed and three datasets.
-They do not say GRL or SAM never work.
-The practical point is simpler.
-If the target domain is not seen and the model cannot abstain, report the ERM number.
+They do not prove that GRL or SAM never work.
+If the target domain is hidden and the model cannot abstain, report the ERM number.
 Do not trust an invariance that the classes did not survive.
 
 \clearpage
