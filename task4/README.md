@@ -58,44 +58,35 @@ task4/
 
 ## How to run
 
-### A) Same Drive / Colab account
+### A) Same Drive account (code already on this Drive) — recommended
 
-From the **repository root**:
+1. In Colab (this Google account), open `task4/run_task4_colab.ipynb`
+   from Drive, **or** upload that file into this Drive and open it.
+2. Runtime → **GPU (T4)**.
+3. Run cells in order: GPU check → **mount Drive** → `cd` into
+   `MyDrive/MS AI/Semester_3/ATML/PAs/ATML-PA1` → pip → start pipeline.
+4. Outputs write into `task4/results/` on Drive (checkpoints, tables, curves,
+   figures, cache). A zip is refreshed after each stage at:
+   - `ATML-PA1/task4_results_bundle.zip`
+   - `MyDrive/ATML-PA1-task4-backup/task4_results_bundle.zip`
+
+Resume-safe: re-running skips any `*_best.pt` that already exists.
 
 ```bash
+# Or staged runner after mount + cd into repo:
 python -m task4.scripts.run_task4 --stages splits
 python -m task4.scripts.run_task4 --stages train_main
 python -m task4.scripts.run_task4 --stages extract_all
 python -m task4.scripts.run_task4 --stages eval
 ```
 
-CIFAR-10/100 download via `torchvision` into `data/cifar/` (gitignored under `/data/`).
+### B) Other Google account with GPU (code Drive out of quota)
 
-### B) Other Google account with GPU (recommended when A is out of quota)
-
-Colab always mounts the **signed-in** account’s Drive. Use **any** account that still has GPU.
-
-1. Push/pull code via **GitHub** (account A Drive is not required for code).
-2. Sign into Colab as the **GPU account**.
-3. Open `task4/run_task4_colab.ipynb` (upload or from GitHub after `git pull`).
-4. Notebook clones into `/content/ATML-PA1` and **symlinks** `task4/results` →
-   `MyDrive/ATML-PA1-task4-backup/results` on **that** account’s Drive.
-5. Every stage writes straight to Drive and refreshes `task4_results_bundle.zip`
-   (checkpoints, tables, curves, figures, cache, splits, log). Resume skips finished `*_best.pt`.
-6. Copy the zip to account A and unzip into `task4/results/`.
-
-**What the Drive folder contains**
-
-| Path under `ATML-PA1-task4-backup/` | Contents |
-|-------------------------------------|----------|
-| `results/checkpoints/*.pt` | Vanilla / GCSC / PROSER weights |
-| `results/tables/*.json` | Score + model comparison + failures |
-| `results/curves/*.json` | Train histories |
-| `results/figures/` | Score-distribution figure |
-| `results/cache/` | Logits/features for OSR scores |
-| `results/splits/` | CIFAR-10 90/10 indices |
-| `task4_results_bundle.zip` | Full downloadable bundle |
-| `task4_pipeline.log` | Run log |
+1. Push/pull code via **GitHub**.
+2. Sign into Colab as the GPU account; clone repo OR copy notebook.
+3. Mount **that** account’s Drive and point results at a backup folder
+   (see older Drive-first cells / `ATML-PA1-task4-backup`).
+4. Copy `task4_results_bundle.zip` back to the code Drive when done.
 
 ## No CIFAR-100 leakage checklist
 
