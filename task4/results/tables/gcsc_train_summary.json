@@ -1,0 +1,8 @@
+{
+  "method": "gcsc",
+  "best_val_acc": 0.9596,
+  "test_csa": 0.9512,
+  "epochs": 100,
+  "seconds": 4679.1093509197235,
+  "checkpoint": "task4/results/checkpoints/gcsc_best.pt"
+}

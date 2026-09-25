@@ -1,0 +1,65 @@
+{
+  "failures": [
+    {
+      "group": "near",
+      "unknown_class": "bus",
+      "predicted_cifar10": "truck",
+      "predicted_cifar10_id": 9,
+      "unknownness_u": -12.037908554077148,
+      "threshold_tau": -5.7165093421936035,
+      "margin_below_tau": 6.321399211883545,
+      "semantically_plausible_hint": "plausible_vehicle_confusion"
+    },
+    {
+      "group": "near",
+      "unknown_class": "wolf",
+      "predicted_cifar10": "dog",
+      "predicted_cifar10_id": 5,
+      "unknownness_u": -12.019232749938965,
+      "threshold_tau": -5.7165093421936035,
+      "margin_below_tau": 6.302723407745361,
+      "semantically_plausible_hint": "plausible_animal_confusion"
+    },
+    {
+      "group": "near",
+      "unknown_class": "bus",
+      "predicted_cifar10": "truck",
+      "predicted_cifar10_id": 9,
+      "unknownness_u": -11.946185111999512,
+      "threshold_tau": -5.7165093421936035,
+      "margin_below_tau": 6.229675769805908,
+      "semantically_plausible_hint": "plausible_vehicle_confusion"
+    },
+    {
+      "group": "far",
+      "unknown_class": "sunflower",
+      "predicted_cifar10": "bird",
+      "predicted_cifar10_id": 2,
+      "unknownness_u": -12.382075309753418,
+      "threshold_tau": -5.7165093421936035,
+      "margin_below_tau": 6.6655659675598145,
+      "semantically_plausible_hint": "surprising_or_weak_semantic_link"
+    },
+    {
+      "group": "far",
+      "unknown_class": "bottle",
+      "predicted_cifar10": "cat",
+      "predicted_cifar10_id": 3,
+      "unknownness_u": -11.840852737426758,
+      "threshold_tau": -5.7165093421936035,
+      "margin_below_tau": 6.124343395233154,
+      "semantically_plausible_hint": "surprising_or_weak_semantic_link"
+    },
+    {
+      "group": "far",
+      "unknown_class": "bowl",
+      "predicted_cifar10": "truck",
+      "predicted_cifar10_id": 9,
+      "unknownness_u": -11.152329444885254,
+      "threshold_tau": -5.7165093421936035,
+      "margin_below_tau": 5.43582010269165,
+      "semantically_plausible_hint": "surprising_or_weak_semantic_link"
+    }
+  ],
+  "n": 6
+}

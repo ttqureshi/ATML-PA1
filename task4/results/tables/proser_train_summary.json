@@ -1,0 +1,8 @@
+{
+  "method": "proser",
+  "best_val_acc": 0.95,
+  "test_csa": 0.9442,
+  "epochs": 50,
+  "seconds": 2316.576901435852,
+  "checkpoint": "task4/results/checkpoints/proser_best.pt"
+}

@@ -1,0 +1,70 @@
+{
+  "description": "Trained-model comparison (MLS common; PROSER placeholder extra)",
+  "threshold_percentile": 95.0,
+  "rows": [
+    {
+      "model": "vanilla",
+      "score": "mls",
+      "csa": 0.9472,
+      "auroc_near": 0.7981773125,
+      "auroc_far": 0.886970625,
+      "auroc_all": 0.84257396875,
+      "tau": -5.7165093421936035,
+      "known_test_accept_rate": 0.954,
+      "near_reject_rate": 0.29375,
+      "far_reject_rate": 0.49375,
+      "all_unknown_reject_rate": 0.39375,
+      "near_fpr_at_95tpr": 0.70625,
+      "far_fpr_at_95tpr": 0.50625,
+      "all_unknown_fpr_at_95tpr": 0.60625
+    },
+    {
+      "model": "gcsc",
+      "score": "mls",
+      "csa": 0.9512,
+      "auroc_near": 0.8151991875,
+      "auroc_far": 0.9052918125,
+      "auroc_all": 0.8602455,
+      "tau": -6.238584518432617,
+      "known_test_accept_rate": 0.9482,
+      "near_reject_rate": 0.3475,
+      "far_reject_rate": 0.6,
+      "all_unknown_reject_rate": 0.47375,
+      "near_fpr_at_95tpr": 0.6525,
+      "far_fpr_at_95tpr": 0.4,
+      "all_unknown_fpr_at_95tpr": 0.52625
+    },
+    {
+      "model": "proser",
+      "score": "mls",
+      "csa": 0.9442,
+      "auroc_near": 0.8157125624999999,
+      "auroc_far": 0.8917504374999999,
+      "auroc_all": 0.8537314999999999,
+      "tau": -5.723110198974609,
+      "known_test_accept_rate": 0.9574,
+      "near_reject_rate": 0.2875,
+      "far_reject_rate": 0.4825,
+      "all_unknown_reject_rate": 0.385,
+      "near_fpr_at_95tpr": 0.7125,
+      "far_fpr_at_95tpr": 0.5175,
+      "all_unknown_fpr_at_95tpr": 0.615
+    },
+    {
+      "model": "proser",
+      "score": "proser_placeholder",
+      "csa": 0.9442,
+      "auroc_near": 0.77683625,
+      "auroc_far": 0.8276894375,
+      "auroc_all": 0.8022628437500001,
+      "tau": 0.10441680997610092,
+      "known_test_accept_rate": 0.949,
+      "near_reject_rate": 0.28,
+      "far_reject_rate": 0.35,
+      "all_unknown_reject_rate": 0.315,
+      "near_fpr_at_95tpr": 0.72,
+      "far_fpr_at_95tpr": 0.65,
+      "all_unknown_fpr_at_95tpr": 0.685
+    }
+  ]
+}

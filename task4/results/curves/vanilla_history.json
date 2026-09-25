@@ -1,9 +1,9 @@
 {
   "method": "vanilla",
   "best_val_acc": 0.9544,
-  "test_csa": null,
+  "test_csa": 0.9472,
   "epochs": 100,
-  "note": "Runtime hit Colab GPU limit at epoch ~98. Kept best ckpt (meta epoch=98, val_acc=0.9544). test_csa filled later at extract/eval.",
+  "note": "Colab GPU quota ended near epoch 98; kept best checkpoint (meta epoch=98, val_acc=0.9544). Full per-epoch history unavailable; test_csa=0.9472 from OSR eval (MLS).",
   "checkpoint": "task4/results/checkpoints/vanilla_best.pt",
   "interrupted": true,
   "resume_safe_skip": true,
