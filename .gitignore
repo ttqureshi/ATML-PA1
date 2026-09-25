@@ -30,6 +30,8 @@ task1/results/images/
 task1/results/cue_conflicts/
 task*/results/**/*.npy
 task*/results/**/*.npz
+# Local teaching visuals (not for GitHub)
+task2/results/figures/lecture_schematics/
 
 # IDE / OS
 .idea/

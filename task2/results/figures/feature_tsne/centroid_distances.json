@@ -1,0 +1,38 @@
+{
+  "source_only": {
+    "n_source": 450,
+    "n_sketch": 450,
+    "centroid_l2": 22.952600479125977,
+    "mean_source_val_macro_f1_at_ckpt": 0.9331358231181116
+  },
+  "dan_lambda1.0": {
+    "n_source": 450,
+    "n_sketch": 450,
+    "centroid_l2": 13.286025047302246,
+    "mean_source_val_macro_f1_at_ckpt": 0.9422945014915185
+  },
+  "dann": {
+    "n_source": 450,
+    "n_sketch": 450,
+    "centroid_l2": 32.001914978027344,
+    "mean_source_val_macro_f1_at_ckpt": 0.9439368607626228
+  },
+  "cdan": {
+    "n_source": 450,
+    "n_sketch": 450,
+    "centroid_l2": 29.080415725708008,
+    "mean_source_val_macro_f1_at_ckpt": 0.947304628907895
+  },
+  "dan_lambda0.1": {
+    "n_source": 450,
+    "n_sketch": 450,
+    "centroid_l2": 24.110788345336914,
+    "mean_source_val_macro_f1_at_ckpt": 0.9388041484403159
+  },
+  "dan_lambda10.0": {
+    "n_source": 450,
+    "n_sketch": 450,
+    "centroid_l2": 40.4112548828125,
+    "mean_source_val_macro_f1_at_ckpt": 0.8751045407956716
+  }
+}
