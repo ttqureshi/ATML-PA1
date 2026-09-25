@@ -73,15 +73,29 @@ CIFAR-10/100 download via `torchvision` into `data/cifar/` (gitignored under `/d
 
 ### B) Other Google account with GPU (recommended when A is out of quota)
 
-Colab always mounts the **signed-in** account’s Drive. So:
+Colab always mounts the **signed-in** account’s Drive. Use **any** account that still has GPU.
 
-1. Push/pull code via **GitHub** (this repo) — account A Drive is not required for code.
-2. Sign into Colab as the **GPU account** (account B).
-3. Open `task4/run_task4_colab.ipynb` (upload or from GitHub).
-4. Notebook clones into `/content/ATML-PA1` and mounts **account B Drive**.
-5. After every stage it syncs `task4/results/` → `MyDrive/ATML-PA1-task4-backup/`
-   (so a disconnect does not wipe checkpoints). Resume skips stages whose `*_best.pt` already exists.
-6. Copy `ATML-PA1-task4-backup/task4_results_bundle.zip` to account A and unzip into `task4/results/`.
+1. Push/pull code via **GitHub** (account A Drive is not required for code).
+2. Sign into Colab as the **GPU account**.
+3. Open `task4/run_task4_colab.ipynb` (upload or from GitHub after `git pull`).
+4. Notebook clones into `/content/ATML-PA1` and **symlinks** `task4/results` →
+   `MyDrive/ATML-PA1-task4-backup/results` on **that** account’s Drive.
+5. Every stage writes straight to Drive and refreshes `task4_results_bundle.zip`
+   (checkpoints, tables, curves, figures, cache, splits, log). Resume skips finished `*_best.pt`.
+6. Copy the zip to account A and unzip into `task4/results/`.
+
+**What the Drive folder contains**
+
+| Path under `ATML-PA1-task4-backup/` | Contents |
+|-------------------------------------|----------|
+| `results/checkpoints/*.pt` | Vanilla / GCSC / PROSER weights |
+| `results/tables/*.json` | Score + model comparison + failures |
+| `results/curves/*.json` | Train histories |
+| `results/figures/` | Score-distribution figure |
+| `results/cache/` | Logits/features for OSR scores |
+| `results/splits/` | CIFAR-10 90/10 indices |
+| `task4_results_bundle.zip` | Full downloadable bundle |
+| `task4_pipeline.log` | Run log |
 
 ## No CIFAR-100 leakage checklist
 
