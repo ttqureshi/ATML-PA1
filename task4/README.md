@@ -80,13 +80,17 @@ python -m task4.scripts.run_task4 --stages extract_all
 python -m task4.scripts.run_task4 --stages eval
 ```
 
-### B) Other Google account with GPU (code Drive out of quota)
+### C) Resume on a **new** GPU account (Vanilla already done)
 
-1. Push/pull code via **GitHub**.
-2. Sign into Colab as the GPU account; clone repo OR copy notebook.
-3. Mount **that** account’s Drive and point results at a backup folder
-   (see older Drive-first cells / `ATML-PA1-task4-backup`).
-4. Copy `task4_results_bundle.zip` back to the code Drive when done.
+Account A hit GPU limits near Vanilla epoch 98. Keep `vanilla_best.pt` (val≈0.9544).
+
+1. On account A, upload / copy `task4/task4_resume_from_vanilla.zip` to the new account
+   (or share via Drive “anyone with the link” and paste the file id into the notebook).
+2. On the new account Colab: open **`task4/run_task4_resume_colab.ipynb`** (upload it).
+3. Runtime → T4 GPU. Run cells top→bottom.
+4. Notebook clones GitHub, mounts **this** Drive, restores the zip, **skips Vanilla**,
+   continues GCSC → PROSER → extract → eval (live cells).
+5. Download `MyDrive/ATML-PA1-task4-backup/task4_results_bundle.zip` back to account A.
 
 ## No CIFAR-100 leakage checklist
 

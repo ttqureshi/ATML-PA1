@@ -1,0 +1,17 @@
+{
+  "method": "vanilla",
+  "best_val_acc": 0.9544,
+  "test_csa": null,
+  "epochs": 100,
+  "note": "Runtime hit Colab GPU limit at epoch ~98. Kept best ckpt (meta epoch=98, val_acc=0.9544). test_csa filled later at extract/eval.",
+  "checkpoint": "task4/results/checkpoints/vanilla_best.pt",
+  "interrupted": true,
+  "resume_safe_skip": true,
+  "history": [
+    {
+      "epoch": 98,
+      "val_acc": 0.9544,
+      "note": "partial log; full history lost with Colab disconnect"
+    }
+  ]
+}
