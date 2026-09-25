@@ -77,10 +77,11 @@ Colab always mounts the **signed-in** account’s Drive. So:
 
 1. Push/pull code via **GitHub** (this repo) — account A Drive is not required for code.
 2. Sign into Colab as the **GPU account** (account B).
-3. Upload / open `task4/run_task4_colab.ipynb` (or open from GitHub).
-4. Notebook **clones** into `/content/ATML-PA1` (no account-A Drive mount).
-5. No Task-2 checkpoint copy needed (Task 4 is self-contained; CIFAR downloads via torchvision).
-6. Download `task4_results_bundle.zip` and unzip into account-A `task4/results/`.
+3. Open `task4/run_task4_colab.ipynb` (upload or from GitHub).
+4. Notebook clones into `/content/ATML-PA1` and mounts **account B Drive**.
+5. After every stage it syncs `task4/results/` → `MyDrive/ATML-PA1-task4-backup/`
+   (so a disconnect does not wipe checkpoints). Resume skips stages whose `*_best.pt` already exists.
+6. Copy `ATML-PA1-task4-backup/task4_results_bundle.zip` to account A and unzip into `task4/results/`.
 
 ## No CIFAR-100 leakage checklist
 
